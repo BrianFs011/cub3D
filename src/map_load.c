@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 14:57:53 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:58:22 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	get_map(t_mlx *mlx, int fd)
 
 	mlx->map_size = map_size(fd);
 	mlx->map = malloc(sizeof(char *) * mlx->map_size + sizeof(char *));
-	i = -1;
+	i = mlx->map_size + 1;
+	mlx->map[--i] = NULL;
 	string = get_next_line(fd);
 	while (string)
 	{
-		mlx->map[++i] = string;
+		mlx->map[--i] = string;
 		string = get_next_line(fd);
 	}
-	mlx->map[++i] = NULL;
 }
 
 void	map_load(t_mlx *mlx)

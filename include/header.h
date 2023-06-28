@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 16:54:31 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:16:14 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_mlx
 	t_data		img;
 	char		**map;
 	int			map_size;
+	int			unlook;
 }t_mlx;
 
 
