@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 14:51:36 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:54:31 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,17 @@ int		ternary_int(int condition, int a, int b);
 void	map_load(t_mlx *mlx);
 
 //------ DRAWS ------
-//draw_rectangle
+//draw_rectangle.c
 void	load_background(t_data *data, int color);
 void	draw_rect(t_data *data, int *p, int color);
 
 void	draw_line(t_data *data, int *p, int color);
 void	draw_objects(t_mlx *mlx);
+
+int		*vector_points(int p0, int p1, int p2, int p3);
+
+//draw_circle.c
+void	draw_circle(t_data *data, int *p, int r, int color);
 
 //primitives.c
 int		create_trgb(int t, int r, int g, int b);

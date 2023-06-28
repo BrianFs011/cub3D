@@ -13,7 +13,7 @@ GNL=get_next_line_utils.c get_next_line.c
 MATHS=math.c
 FT_UTILS=ft_utils.c
 PRIMITIVES=primitives.c           #Arquivos referentes a primitivas
-BASIC_GEOMETRIC= draw_rectangle.c draw_line.c #Arquivos referentes a formas geometricas basicas
+BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes a formas geometricas basicas
 
 EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
 
