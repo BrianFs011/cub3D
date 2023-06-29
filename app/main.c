@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 18:56:29 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:02:50 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ int	render(t_mlx *mlx)
 	return (0);
 }
 
+int	close_program(int keycode, t_mlx *vars)
+{
+	(void)keycode;
+	mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
@@ -74,6 +81,8 @@ int	main(int argc, char **argv)
 	cam_init(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, render, &mlx);
 	mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
+	mlx_hook(mlx.win_ptr, 2, 1L<<0, NULL, NULL);
+	mlx_hook(mlx.win_ptr, 17, 1L<<5, close_program, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
