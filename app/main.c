@@ -6,11 +6,16 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/29 18:58:15 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:22:00 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	object_init(t_mlx *mlx)
+{
+	mlx->radius = 25.0;
+}
 
 int	*vector_points(int p0, int p1, int p2, int p3)
 {
@@ -59,10 +64,10 @@ void	draw_objects(t_mlx *mlx)
 {
 	draw_map(mlx);
 	draw_circle(&mlx->img,
-		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), 25,
+		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), mlx->radius,
 		create_trgb(0, 0, 255, 0));
 	draw_direction(mlx,
-		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), 25,
+		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), mlx->radius,
 		create_trgb(0, 0, 0, 255));
 }
 
@@ -110,6 +115,7 @@ int	main(int argc, char **argv)
 	window_init(&mlx);
 	image_init(&mlx);
 	cam_init(&mlx);
+	object_init(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, render, &mlx);
 	mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, close_program, &mlx);

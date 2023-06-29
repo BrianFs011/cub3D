@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/29 18:43:37 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:23:35 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ double	degrees_to_radians(double degree);
 //------ FT_UTILS ------
 //ft_utils.c
 int		ternary_int(int condition, int a, int b);
+double	ternary_d(int condition, double a, double b);
 
 //------ MAP ------
 void	map_load(t_mlx *mlx);
