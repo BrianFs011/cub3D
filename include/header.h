@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 17:16:14 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:43:37 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_mlx
 	char		**map;
 	int			map_size;
 	int			unlook;
+	int			radius;
 }t_mlx;
 
 

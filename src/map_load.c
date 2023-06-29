@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 18:58:22 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:34:50 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 int	map_size(int fd)
 {
-	int	i;
+	int		i;
+	char	*string;
 
 	i = 0;
-	while (get_next_line(fd))
+	string = get_next_line(fd);
+	while (string)
+	{
+		free(string);
+		string = get_next_line(fd);
 		i++;
+	}
 	lseek(fd, 0, SEEK_SET);
 	return (i);
 }

@@ -27,7 +27,7 @@ SRCS=$(GNL) $(MATHS) $(MAP) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENT
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include
 LIBS= -L $(LIB)/libft/bin -lft -lmlx -lXext -lX11 -lm
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -g -g3
 CC=cc
 VAL_FLAGS=--leak-check=full --track-origins=yes --show-leak-kinds=all -s
 
@@ -51,6 +51,9 @@ $(BIN):
 run: all
 	$(BIN)/$(NAME)
 
+check: all
+	valgrind $(VAL_FLAGS) $(BIN)/$(NAME)
+
 norm:
 	norminette -R CheckForbiddenSourceHeader
 
@@ -64,5 +67,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all norm clean fclean re
+.PHONY: all norm clean fclean re run check
 

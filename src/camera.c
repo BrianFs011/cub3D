@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:14 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 19:09:57 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:34:36 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	cam_init(t_mlx *mlx)
 {
 	//posição da camera
-	mlx->camera.x = 150.0;
-	mlx->camera.y = 100.0;
+	mlx->camera.x = 200.0;
+	mlx->camera.y = 200.0;
 	mlx->camera.z = 0.0;
 	//onde a camera aponta
 	mlx->camera.looking_x = 300.0;

@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:20:56 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 19:30:05 by briferre         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:06:55 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,28 @@ int	handle_key_press(int keycode, t_mlx *mlx)
 	mlx->unlook = 1;
 	if (keycode == 'w')
 	{
-		if (mlx->map[(int)((mlx->camera.y + 10.0) / 100)][(int)((mlx->camera.x) / 100)] != '1')
-			mlx->camera.y += 10.0;
+		// if (mlx->map[(int)((mlx->camera.y + 25.0) / 100)][(int)((mlx->camera.x) / 100)] != '1')
+			mlx->camera.x += 2 * cos(degrees_to_radians(mlx->camera.theta));
+			mlx->camera.y += 2 * sin(degrees_to_radians(mlx->camera.theta));
 	}
 	if (keycode == 'a')
 	{
-		if (mlx->map[(int)(mlx->camera.y / 100)][(int)((mlx->camera.x - 10.0) / 100)] != '1')
-			mlx->camera.x -= 10.0;
+		mlx->camera.theta += 5.0;
+		// if (mlx->map[(int)(mlx->camera.y / 100)][(int)((mlx->camera.x - 30.0) / 100)] != '1')
+		// 	mlx->camera.x -= 5.0;
 	}
 	if (keycode == 's')
 	{
-		if (mlx->map[(int)((mlx->camera.y - 10.0) / 100)][(int)((mlx->camera.x) / 100)] != '1')
-			mlx->camera.y -= 10.0;
+			mlx->camera.x -= 2 * cos(degrees_to_radians(mlx->camera.theta));
+			mlx->camera.y -= 2 * sin(degrees_to_radians(mlx->camera.theta));
+		// if (mlx->map[(int)((mlx->camera.y - 30.0) / 100)][(int)((mlx->camera.x) / 100)] != '1')
+		// 	mlx->camera.y -= 5.0;
 	}
 	if (keycode == 'd')
 	{
-		if (mlx->map[(int)(mlx->camera.y / 100)][(int)((mlx->camera.x + 10.0) / 100)] != '1')
-			mlx->camera.x += 10.0;
+		mlx->camera.theta -= 5.0;
+		// if (mlx->map[(int)(mlx->camera.y / 100)][(int)((mlx->camera.x + 25.0) / 100)] != '1')
+		// 	mlx->camera.x += 5.0;
 	}
 	printf("Position: %.f %.f\n", mlx->camera.x, mlx->camera.y);
 	/*
