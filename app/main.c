@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/29 19:22:00 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:41:13 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,35 @@ void	draw_map(t_mlx *mlx)
 	}
 }
 
-void	draw_direction(t_mlx *mlx, int *p, int r, int color)
+double	find_wall(t_mlx *mlx)
 {
-	printf("r(%f) %fi %fj\n", mlx->camera.theta, r * cos(degrees_to_radians(mlx->camera.theta)), r * sin(degrees_to_radians(mlx->camera.theta)));
+	double	x[2];
+	double	y[2];
+	double	radius;
+
+	x[0] = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.x + 2 * cos(degrees_to_radians(mlx->camera.theta));
+	y[0] = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.y + 2 * sin(degrees_to_radians(mlx->camera.theta));
+	x[1] = mlx->camera.x;
+	y[1] = mlx->camera.y;
+	// printf("(%d, %d) %lf %lf %lf %lf\n", (int)(y[0] / 100), (int)(x[0] / 100), x[0], y[0], x[1], y[1]);
+	while (mlx->map[(int)(y[0] / 100)][(int)(x[0] / 100)] != '1')
+	{
+		x[1] += 2 * cos(degrees_to_radians(mlx->camera.theta));
+		y[1] += 2 * sin(degrees_to_radians(mlx->camera.theta));
+		x[0] = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + x[1] + 2 * cos(degrees_to_radians(mlx->camera.theta));
+		y[0] = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + y[1] + 2 * sin(degrees_to_radians(mlx->camera.theta));
+	}
+	radius = sqrt(pow(x[1] - mlx->camera.x, 2) + pow(y[1] - mlx->camera.y, 2));
+	return (radius);
+}
+
+void	draw_direction(t_mlx *mlx, int *p, int color)
+{
 	draw_line(&mlx->img, vector_points(
 			p[X],
-			p[X] + r * cos(degrees_to_radians(mlx->camera.theta)),
+			p[X] + (find_wall(mlx) + mlx->radius) * cos(degrees_to_radians(mlx->camera.theta)),
 			p[Y],
-			p[Y] + r * sin(degrees_to_radians(mlx->camera.theta))),
+			p[Y] + (find_wall(mlx) + mlx->radius) * sin(degrees_to_radians(mlx->camera.theta))),
 		color);
 	free(p);
 }
@@ -67,7 +88,7 @@ void	draw_objects(t_mlx *mlx)
 		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), mlx->radius,
 		create_trgb(0, 0, 255, 0));
 	draw_direction(mlx,
-		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), mlx->radius,
+		vector_points(mlx->camera.x, mlx->camera.y, 0, 0),
 		create_trgb(0, 0, 0, 255));
 }
 
