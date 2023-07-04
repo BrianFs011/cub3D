@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:20:56 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/04 19:12:39 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:53:52 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@ int	handle_key_press(int keycode, t_mlx *mlx)
 	if (keycode == 'w')
 	{
 		x = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.x + 2 * cos(degrees_to_radians(mlx->camera.theta));
-		y = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.y + 2 * sin(degrees_to_radians(mlx->camera.theta));
+		y = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.y;
 		if (mlx->map[(int)(y / 100)][(int)(x / 100)] != '1')
 		{
 			mlx->camera.x += 2 * cos(degrees_to_radians(mlx->camera.theta));
-			mlx->camera.y += 2 * sin(degrees_to_radians(mlx->camera.theta));
 		}
+		x = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.x;
+		y = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.y + 2 * sin(degrees_to_radians(mlx->camera.theta));
+		if (mlx->map[(int)(y / 100)][(int)(x / 100)] != '1')
+			mlx->camera.y += 2 * sin(degrees_to_radians(mlx->camera.theta));
 	}
 	if (keycode == 'a')
 	{
