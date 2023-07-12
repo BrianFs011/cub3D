@@ -6,122 +6,138 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/04 19:41:13 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:06:11 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	object_init(t_mlx *mlx)
+int	map_position(double p)
 {
-	mlx->radius = 25.0;
+	return (p / 100);
 }
-
-int	*vector_points(int p0, int p1, int p2, int p3)
-{
-	int	*p;
-
-	p = malloc(sizeof(int) * 4);
-	p[0] = p0;
-	p[1] = p1;
-	p[2] = p2;
-	p[3] = p3;
-	return (p);
-}
-
-void	draw_map(t_mlx *mlx)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	// while (mlx->map[++i] && i < 5)
-	while (mlx->map[++i])
-	{
-		j = -1;
-		// while (mlx->map[++j] && j < 1)
-		while (mlx->map[++j])
-			if (mlx->map[j][i] == '1')
-				draw_rect(&mlx->img, vector_points(i * 100,
-						j * 100, 0, 0),
-					create_trgb(0, 255, 0, 0));
-	}
-}
-
-double	find_wall(t_mlx *mlx)
-{
-	double	x[2];
-	double	y[2];
-	double	radius;
-
-	x[0] = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.x + 2 * cos(degrees_to_radians(mlx->camera.theta));
-	y[0] = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.y + 2 * sin(degrees_to_radians(mlx->camera.theta));
-	x[1] = mlx->camera.x;
-	y[1] = mlx->camera.y;
-	// printf("(%d, %d) %lf %lf %lf %lf\n", (int)(y[0] / 100), (int)(x[0] / 100), x[0], y[0], x[1], y[1]);
-	while (mlx->map[(int)(y[0] / 100)][(int)(x[0] / 100)] != '1')
-	{
-		x[1] += 2 * cos(degrees_to_radians(mlx->camera.theta));
-		y[1] += 2 * sin(degrees_to_radians(mlx->camera.theta));
-		x[0] = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + x[1] + 2 * cos(degrees_to_radians(mlx->camera.theta));
-		y[0] = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + y[1] + 2 * sin(degrees_to_radians(mlx->camera.theta));
-	}
-	radius = sqrt(pow(x[1] - mlx->camera.x, 2) + pow(y[1] - mlx->camera.y, 2));
-	return (radius);
-}
-
-void	draw_direction(t_mlx *mlx, int *p, int color)
-{
-	draw_line(&mlx->img, vector_points(
-			p[X],
-			p[X] + (find_wall(mlx) + mlx->radius) * cos(degrees_to_radians(mlx->camera.theta)),
-			p[Y],
-			p[Y] + (find_wall(mlx) + mlx->radius) * sin(degrees_to_radians(mlx->camera.theta))),
-		color);
-	free(p);
-}
-
-void	draw_objects(t_mlx *mlx)
-{
-	draw_map(mlx);
-	draw_circle(&mlx->img,
-		vector_points(mlx->camera.x, mlx->camera.y, 0, 0), mlx->radius,
-		create_trgb(0, 0, 255, 0));
-	draw_direction(mlx,
-		vector_points(mlx->camera.x, mlx->camera.y, 0, 0),
-		create_trgb(0, 0, 0, 255));
-}
-
 
 int	render(t_mlx *mlx)
 {
+	double	*ray_direction;
+	double	*delta_distance;
+	double	*position;
+	// double	*distince_side;
+
 	if (mlx->unlook)
 	{
-		draw_objects(mlx);
+		load_background(&mlx->img);
+		ray_direction  = vector_points_d(0, 0, 0, 0);
+		delta_distance = vector_points_d(0, 0, 0, 0);
+		position       = vector_points_d(100, 100, 0, 0);
+		// distince_side  = vector_points_d(0, 0, 0, 0);
+
+		ray_direction[X] = ray_to_plane(100, 200, ray_multiple(0));
+		ray_direction[Y] = ray_to_plane(100, 200, ray_multiple(0));
+
+		delta_distance[X] = magnitude(delta_distance[X], delta_distance[Y]) / delta_distance[X];
+		delta_distance[Y] = magnitude(delta_distance[X], delta_distance[Y]) / delta_distance[Y];
+		delta_distance[X] = ternary_d(delta_distance[X] < 0, -delta_distance[X], delta_distance[X]);
+		delta_distance[Y] = ternary_d(delta_distance[Y] < 0, -delta_distance[Y], delta_distance[Y]);
+
+		// double stepX = 0;
+		// double stepY = 0;
+
+		// if (ray_direction[X] < 0)
+		// {
+		// 	stepX -= 1;
+		// 	distince_side[X] = (position[X] - map_position(position[X])) * delta_distance[X];
+		// }
+		// else
+		// {
+		// 	distince_side[X] = (map_position(position[X]) + 1 - position[X]) * delta_distance[X];
+		// 	stepX += 1;
+		// }
+		// if (ray_direction[Y] < 0)
+		// {
+		// 	stepX -= 1;
+		// 	distince_side[Y] = (position[Y] - map_position(position[Y])) * delta_distance[Y];
+		// }
+		// else
+		// {
+		// 	stepX += 1;
+		// 	distince_side[Y] = (map_position(position[Y]) + 1 - position[Y]) * delta_distance[Y];
+		// }
+		// int hit_side;
+		// int hit = 0;
+		// double ddaLineSizeX = distince_side[X];
+		// double ddaLineSizeY = distince_side[Y];
+		// int *wallMapPos = vector_points_i(map_position(position[X]), map_position(position[Y]), 0, 0);
+
+		// while (hit == 0)
+		// {
+		// 	if (ddaLineSizeX < ddaLineSizeY)
+		// 	{
+		// 		wallMapPos[X] += stepX;
+		// 		ddaLineSizeX += delta_distance[X];
+		// 		// hit_side = 0;
+		// 	}
+		// 	else
+		// 	{
+		// 		wallMapPos[Y] += stepY;
+		// 		ddaLineSizeY += delta_distance[Y];
+		// 		// hit_side = 1;
+		// 	}
+		// 	if (mlx->map[wallMapPos[X]][wallMapPos[Y]] == '1')
+		// 		hit = 1;
+		// }
+
+		// ---
+		// draw_line(&mlx->img, vector_points_i(100, 200, 100, 100), create_trgb(0, 255, 0, 0));
+		// draw_line(&mlx->img, vector_points_i(200, 200, 100, 200), create_trgb(0, 255, 0, 0));
+		// draw_line(&mlx->img, vector_points_i(100, 200, 200, 200), create_trgb(0, 255, 0, 0));
+		// draw_line(&mlx->img, vector_points_i(100, 100, 200, 100), create_trgb(0, 255, 0, 0));
+		// ---
+
+		double wall_size = HEIGHT / mlx->camera.position.y * 100;
+		for (int i = 0; i < 600; i++)
+		{
+			draw_line(&mlx->img,
+				vector_points_i(i,
+												i,
+												(HEIGHT / 2) - (wall_size / 2),
+												(HEIGHT / 2) + (wall_size / 2)),
+				create_trgb(0, 255, 0, 0));
+		}
+
+		printf("%lf\n", HEIGHT / mlx->camera.position.y * 100);
+
+
+		// double deltaY = 100 * (sin(degrees_to_radians(mlx->camera.theta)) * 100) / (cos(degrees_to_radians(mlx->camera.theta)) * 100);
+
+		// draw_line(&mlx->img,
+		// 	vector_points_i(position[X],
+		// 									position[X] + cos(degrees_to_radians(mlx->camera.theta)) * 100,
+		// 									position[Y],
+		// 									position[Y] + sin(degrees_to_radians(mlx->camera.theta)) * 100),
+		// 	create_trgb(0, 255, 0, 0));
+
+		// double tang = (100 * sin(degrees_to_radians(mlx->camera.theta)) * 100) / (cos(degrees_to_radians(mlx->camera.theta)) * 100);
+
+		// delta_distance[X] = magnitude(cos(degrees_to_radians(mlx->camera.theta)) * 100, sin(degrees_to_radians(mlx->camera.theta)) * 100);
+
+		// draw_line(&mlx->img,
+		// 	vector_points_i(position[X],
+		// 									position[X] + cos(degrees_to_radians(mlx->camera.theta)) * 100,
+		// 									position[Y],
+		// 									position[Y] + deltaY),
+		// 	create_trgb(0, 0, 255, 0));
+
+
+		// (map_position(position[Y]) + 1) * 100 - position[Y]
+
+		// printf("%lf %lf\n", ray_to_plane(ray, ray_multiple(0)), ray[1]);
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
 		mlx->unlook = 0;
+		free(position);
+		free(ray_direction);
+		free(delta_distance);
 	}
-	return (0);
-}
-
-void	clear_memory_map(t_mlx *mlx)
-{
-	int	i;
-
-	i = -1;
-	while (++i < mlx->map_size && mlx->map[i])
-		free(mlx->map[i]);
-	free(mlx->map);
-}
-
-int	close_program(t_mlx *mlx)
-{
-	(void)mlx;
-	mlx_destroy_image(mlx->mlx_ptr, mlx->img.img);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	mlx_destroy_display(mlx->mlx_ptr);
-	free(mlx->mlx_ptr);
-	clear_memory_map(mlx);
 	return (0);
 }
 
@@ -132,15 +148,32 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	mlx.unlook = 1;
+	// ---- Init ----
 	map_load(&mlx);
 	window_init(&mlx);
 	image_init(&mlx);
 	cam_init(&mlx);
-	object_init(&mlx);
+
+	// ---- Render ----
 	mlx_loop_hook(mlx.mlx_ptr, render, &mlx);
+
 	mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, close_program, &mlx);
-	mlx_hook(mlx.win_ptr, 2, 1L<<0, NULL, NULL);
+	mlx_hook(mlx.win_ptr, 2, 1L << 0, NULL, NULL);
 	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
+	// for(int x = 0; x < WIDTH; x++)
+	// {
+	// 	//calculate ray position and direction
+	// 	double cameraX = 2 * x / WIDTH - 1; //x-coordinate in camera space
+	// 	double rayDirX = mlx.camera.looking.x + mlx.camera.plane.x * mlx.camera.position.x;
+	// 	double rayDirY = mlx.camera.looking.y + mlx.camera.plane.y * mlx.camera.position.y;
+	// }
+
+
+
+		// draw_line(&mlx->img, vector_points(300, 600, 300, 300), create_trgb(0, 0, 255, 0));
+		// draw_line(&mlx->img, vector_points(300, 300, 300, 600), create_trgb(0, 255, 0, 0));
+		// draw_line(&mlx->img, vector_points(0, 300, 0, 300), create_trgb(0, 0, 0, 255));
+		// draw_line(&mlx->img, vector_points(300 + 20, 300 + 20, 300, 400 - mlx->camera.position.x * tan(degrees_to_radians(45))), create_trgb(0, 255, 255, 0));

@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:19:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/22 18:04:29 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:04:41 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,21 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	screen_clear(t_data *data, int color)
+void	load_background(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < HEIGHT)
+	while (++i < WIDTH)
 	{
 		j = -1;
-		while (++j < WIDTH)
-			my_mlx_pixel_put(data, j, i, color);
+		while (++j <= HEIGHT)
+		{
+			if (j > HEIGHT / 2)
+				my_mlx_pixel_put(data, i, j, create_trgb(0, 190, 190, 255));
+			else
+				my_mlx_pixel_put(data, i, j, create_trgb(0, 130, 130, 130));
+		}
 	}
 }

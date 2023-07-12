@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/28 21:34:50 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:34:06 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ void	map_load(t_mlx *mlx)
 	fd = open("maps/map1.cub", O_RDONLY);
 	get_map(mlx, fd);
 	close(fd);
+}
+
+void	clear_memory_map(t_mlx *mlx)
+{
+	int	i;
+
+	i = -1;
+	while (++i < mlx->map_size && mlx->map[i])
+		free(mlx->map[i]);
+	free(mlx->map);
 }

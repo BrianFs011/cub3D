@@ -14,6 +14,7 @@ MATHS=math.c
 FT_UTILS=ft_utils.c
 PRIMITIVES=primitives.c           #Arquivos referentes a primitivas
 BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes a formas geometricas basicas
+DRAW_UTILS=draw_utils.c
 
 EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
 
@@ -22,7 +23,7 @@ PERSONAGEM=                                   #Arquivos referentes ao personagem
 
 LIBX=window.c image.c                         #Arquivos referentes a minilibx
 
-SRCS=$(GNL) $(MATHS) $(MAP) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX)
+SRCS=$(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX)
 #VARIABLES
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include

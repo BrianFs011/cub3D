@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rectangle.c                                   :+:      :+:    :+:   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 21:08:36 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/12 07:33:48 by briferre         ###   ########.fr       */
+/*   Created: 2023/07/11 09:09:49 by briferre          #+#    #+#             */
+/*   Updated: 2023/07/12 07:44:39 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	draw_rect(t_data *data, int *p, int color)
+int	*vector_points_i(int p0, int p1, int p2, int p3)
 {
-	int	width;
-	int	height;
-	int	i;
-	int	j;
+	int	*p;
 
-	width = 100;
-	height = 100;
-	(void)height;
-	i = p[X];
-	while (i < p[X] + width)
-	{
-		j = p[Y];
-		while (j < p[Y] + height)
-		{
-			my_mlx_pixel_put(data, i, j, color);
-			j++;
-		}
-		i++;
-	}
-	free(p);
+	p = malloc(sizeof(int) * 4);
+	p[0] = p0;
+	p[1] = p1;
+	p[2] = p2;
+	p[3] = p3;
+	return (p);
+}
+
+double	*vector_points_d(double p0, double p1, double p2, double p3)
+{
+	double	*p;
+
+	p = malloc(sizeof(double) * 4);
+	p[0] = p0;
+	p[1] = p1;
+	p[2] = p2;
+	p[3] = p3;
+	return (p);
 }
