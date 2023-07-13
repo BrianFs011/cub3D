@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:31:26 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/12 08:37:14 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/13 08:18:19 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	degrees_to_radians(double degree)
 
 double	ray_multiple(int i)
 {
-	return (2 * (i / WIDTH) - 1);
+	return (2 * ((double)i / (double)WIDTH) - 1);
 }
 
 double	ray_to_plane(double direction, double plane, double multiple)
