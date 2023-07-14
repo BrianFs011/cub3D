@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/12 16:13:56 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/14 10:07:00 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-# define HEIGHT 600
-# define WIDTH 600
+# define HEIGHT 200
+# define WIDTH 320
 # define X 0
 # define Y 1
 # define Z 2
@@ -72,6 +72,13 @@ double	degrees_to_radians(double degree);
 double	ray_to_plane(double direction, double plane, double multiple);
 double	ray_multiple(int i);
 double	magnitude(int delta_x, int delta_y);
+double	abs_d(double value);
+//vectors_d
+void		vector_print_d(double *v);
+double	*vector_add_d(double *v1, double *v2);
+double	*vector_emultiple_d(double *v1, double escalar);
+//vectors_i
+void		vector_print_i(int *v);
 
 //------ FT_UTILS ------
 //ft_utils.c

@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:31:26 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/13 08:18:19 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/14 09:30:33 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,11 @@ double	ray_to_plane(double direction, double plane, double multiple)
 double	magnitude(int delta_x, int delta_y)
 {
 	return (sqrt(pow(delta_x, 2) + pow(delta_y, 2)));
+}
+
+double	abs_d(double value)
+{
+	if (value < 0)
+		return (-value);
+	return (value);
 }

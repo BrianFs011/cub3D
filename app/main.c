@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/13 19:20:41 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/14 10:29:44 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@ int	render(t_mlx *mlx)
 	{
 		load_background(&mlx->img);
 		double	*position = vector_points_d(mlx->camera.position.x, mlx->camera.position.y, 0, 0);
-		double	*direction = vector_points_d(0, 1, 0, 0);
+		double	*direction = vector_points_d(0, -1, 0, 0);
 		double	*camera_plane = vector_points_d(0.66, 0, 0, 0);
 
-		for (int i = 0; i < WIDTH; i++)
+		for (int i = 0; i <= WIDTH; i++)
 		{
-			double multiple = 2 * (double)i / (double)WIDTH - 1;
-			double *camera_pixel = vector_points_d(camera_plane[X] * multiple, camera_plane[Y] * multiple, 0, 0);
+			double multiple = 2 * (double)i / (double)WIDTH - 1; // OK
+			// printf("%lf\n", multiple);
+			double *camera_pixel = vector_emultiple_d(camera_plane, multiple); // OK
+			// vector_print_d(camera_pixel);
+			double *ray_dir = vector_add_d(direction, camera_pixel); // OK
+			// vector_print_d(ray_dir);
 
-			double *ray_dir = vector_points_d(direction[X] + camera_pixel[X], direction[Y] + camera_pixel[Y], 0, 0);
 
-			double delta_dist_x = magnitude(1, ray_dir[Y] / ray_dir[X]);
-			double delta_dist_y = magnitude(1, ray_dir[X] / ray_dir[Y]);
+			double delta_dist_x; // OK
+			double delta_dist_y; // OK
 
+			// trata divisão por 0 // Ok
 			if (ray_dir[X] == 0)
 			{
 				delta_dist_x = 1;
@@ -39,7 +43,7 @@ int	render(t_mlx *mlx)
 			else
 			{
 				if (ray_dir[Y])
-					delta_dist_x = ternary_d(delta_dist_x < 0, -delta_dist_x, delta_dist_x);
+					delta_dist_x = abs_d(1 / ray_dir[X]);
 			}
 			if (ray_dir[Y] == 0)
 			{
@@ -49,10 +53,13 @@ int	render(t_mlx *mlx)
 			else
 			{
 				if (ray_dir[X])
-					delta_dist_y = ternary_d(delta_dist_y < 0, -delta_dist_y, delta_dist_y);
+					delta_dist_y = abs_d(1 / ray_dir[Y]);
 			}
+			// printf("%d: %lf %lf\n", i, delta_dist_x, delta_dist_y);
 
-			int	*map_pos = vector_points_i(position[X], position[Y], 0, 0);
+
+			int	*map_pos = vector_points_i(position[X], position[Y], 0, 0); // Ok
+			// vector_print_i(map_pos);
 
 			double dist_to_side_x;
 			double dist_to_side_y;
@@ -62,39 +69,41 @@ int	render(t_mlx *mlx)
 
 			if (ray_dir[X] < 0)
 			{
-				dist_to_side_x = ((position[X]) - (map_pos[X] * 1)) * delta_dist_x;
+				dist_to_side_x = (position[X] - (double)map_pos[X]) * delta_dist_x;
 				step_x = -1;
 			}
 			else
 			{
-				dist_to_side_x = (((map_pos[X] + 1) * 1) - position[X]) * delta_dist_x;
+				dist_to_side_x = ((double)map_pos[X] + 1 - position[X]) * delta_dist_x;
 				step_x = 1;
 
 			}
 			if (ray_dir[Y] < 0)
 			{
-				dist_to_side_y = (position[Y] - (map_pos[Y] * 1)) * delta_dist_y;
+				dist_to_side_y = (position[Y] - (double)map_pos[Y]) * delta_dist_y;
 				step_y = -1;
 
 			}
 			else
 			{
-				dist_to_side_y = (((map_pos[Y] + 1) * 1) - position[Y]) * delta_dist_y;
+				dist_to_side_y = ((double)map_pos[Y] + 1 - position[Y]) * delta_dist_y;
 				step_y = 1;
-
 			}
+			// printf("%d: %lf %lf\n", i, dist_to_side_x, dist_to_side_y);
 
 			int hit = 0;
 
 			int	hit_side;
 
-			int	dda_line_size_x = dist_to_side_x;
-			int	dda_line_size_y = dist_to_side_y;
+			double	dda_line_size_x = dist_to_side_x;
+			double	dda_line_size_y = dist_to_side_y;
 
 			int	*wall_map_pos = vector_points_i(map_pos[X], map_pos[Y], 0, 0);
+			// vector_print_i(wall_map_pos);
 
 			while (hit == 0)
 			{
+				// printf("%d: %lf %lf\n", i, dda_line_size_x, dda_line_size_y);
 				if (dda_line_size_x < dda_line_size_y)
 				{
 					wall_map_pos[X] += step_x;
@@ -107,10 +116,12 @@ int	render(t_mlx *mlx)
 					dda_line_size_y += delta_dist_y;
 					hit_side = 1;
 				}
-
+				// printf("%d: %d %d\n", i, wall_map_pos[X], wall_map_pos[Y]);
 				if (mlx->map[wall_map_pos[X]][wall_map_pos[Y]] == '1')
 					hit = 1;
 			}
+			// printf("%d: %d %d\n", i, wall_map_pos[X], wall_map_pos[Y]);
+
 			double perpendicular_dist;
 
 			if (hit_side == 0)

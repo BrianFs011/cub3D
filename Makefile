@@ -10,7 +10,7 @@ NAME=cub3D
 #FILES
 MAP=map_load.c
 GNL=get_next_line_utils.c get_next_line.c
-MATHS=math.c
+MATHS=math.c vectors_d.c vectors_i.c
 FT_UTILS=ft_utils.c
 PRIMITIVES=primitives.c           #Arquivos referentes a primitivas
 BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes a formas geometricas basicas

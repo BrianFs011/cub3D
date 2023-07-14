@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:20:56 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/13 19:17:04 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/14 10:19:42 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	handle_key_press(int keycode, t_mlx *mlx)
 	mlx->unlook = 1;
 	if (keycode == 'w')
 	{
-		mlx->camera.position.y += 0.01;
+		mlx->camera.position.y -= 0.01;
 		// x = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.position.x + 2 * cos(degrees_to_radians(mlx->camera.theta));
 		// y = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, -mlx->radius, mlx->radius) + mlx->camera.position.y;
 		// if (mlx->map[(int)(y / 100)][(int)(x / 100)] != '1')
@@ -39,7 +39,7 @@ int	handle_key_press(int keycode, t_mlx *mlx)
 	}
 	if (keycode == 's')
 	{
-		mlx->camera.position.y -= 0.01;
+		mlx->camera.position.y += 0.01;
 		// x = ternary_d(cos(degrees_to_radians(mlx->camera.theta)) < 0, mlx->radius, -mlx->radius) + mlx->camera.position.x - 2 * cos(degrees_to_radians(mlx->camera.theta));
 		// y = ternary_d(sin(degrees_to_radians(mlx->camera.theta)) < 0, mlx->radius, -mlx->radius) + mlx->camera.position.y - 2 * sin(degrees_to_radians(mlx->camera.theta));
 		// if (mlx->map[(int)(y / 100)][(int)(x / 100)] != '1')
