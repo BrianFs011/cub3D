@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/14 10:29:44 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:55:38 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ int	render(t_mlx *mlx)
 	{
 		load_background(&mlx->img);
 		double	*position = vector_points_d(mlx->camera.position.x, mlx->camera.position.y, 0, 0);
-		double	*direction = vector_points_d(0, -1, 0, 0);
-		double	*camera_plane = vector_points_d(0.66, 0, 0, 0);
+		double	*d = vector_points_d(0, 1, 0, 0);
+		double	*direction = vector_rotate(d, mlx->camera.theta);
+		double	*r = vector_points_d(0.66, 0, 0, 0);
+		double	*camera_plane = vector_rotate(r, mlx->camera.theta);
+		free(d);
+		free(r);
 
 		for (int i = 0; i <= WIDTH; i++)
 		{
-			double multiple = 2 * (double)i / (double)WIDTH - 1; // OK
-			// printf("%lf\n", multiple);
+			double multiple = 2 * (double)i / (double)WIDTH - 1;
 			double *camera_pixel = vector_emultiple_d(camera_plane, multiple); // OK
-			// vector_print_d(camera_pixel);
-			double *ray_dir = vector_add_d(direction, camera_pixel); // OK
-			// vector_print_d(ray_dir);
 
+			double *ray_dir = vector_add_d(direction, camera_pixel); // OK
 
 			double delta_dist_x; // OK
 			double delta_dist_y; // OK
