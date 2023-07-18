@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/14 14:55:38 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:37:40 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	render(t_mlx *mlx)
 	if (mlx->unlook)
 	{
 		load_background(&mlx->img);
-		double	*position = vector_points_d(mlx->camera.position.x, mlx->camera.position.y, 0, 0);
+		// double	*position = vector_points_d(mlx->camera.position.x, mlx->camera.position.y, 0, 0);
 		double	*d = vector_points_d(0, 1, 0, 0);
 		double	*direction = vector_rotate(d, mlx->camera.theta);
 		double	*r = vector_points_d(0.66, 0, 0, 0);
@@ -59,7 +59,7 @@ int	render(t_mlx *mlx)
 			// printf("%d: %lf %lf\n", i, delta_dist_x, delta_dist_y);
 
 
-			int	*map_pos = vector_points_i(position[X], position[Y], 0, 0); // Ok
+			int	*map_pos = vector_points_i(mlx->camera.position.x, mlx->camera.position.y, 0, 0); // Ok
 			// vector_print_i(map_pos);
 
 			double dist_to_side_x;
@@ -70,24 +70,24 @@ int	render(t_mlx *mlx)
 
 			if (ray_dir[X] < 0)
 			{
-				dist_to_side_x = (position[X] - (double)map_pos[X]) * delta_dist_x;
+				dist_to_side_x = (mlx->camera.position.x - (double)map_pos[X]) * delta_dist_x;
 				step_x = -1;
 			}
 			else
 			{
-				dist_to_side_x = ((double)map_pos[X] + 1 - position[X]) * delta_dist_x;
+				dist_to_side_x = ((double)map_pos[X] + 1 - mlx->camera.position.x) * delta_dist_x;
 				step_x = 1;
 
 			}
 			if (ray_dir[Y] < 0)
 			{
-				dist_to_side_y = (position[Y] - (double)map_pos[Y]) * delta_dist_y;
+				dist_to_side_y = (mlx->camera.position.y - (double)map_pos[Y]) * delta_dist_y;
 				step_y = -1;
 
 			}
 			else
 			{
-				dist_to_side_y = ((double)map_pos[Y] + 1 - position[Y]) * delta_dist_y;
+				dist_to_side_y = ((double)map_pos[Y] + 1 - mlx->camera.position.y) * delta_dist_y;
 				step_y = 1;
 			}
 			// printf("%d: %lf %lf\n", i, dist_to_side_x, dist_to_side_y);
@@ -126,9 +126,9 @@ int	render(t_mlx *mlx)
 			double perpendicular_dist;
 
 			if (hit_side == 0)
-				perpendicular_dist = ternary_d((wall_map_pos[X] - position[X] + ((1 - step_x) / 2)) / ray_dir[X] < 0, -((wall_map_pos[X] - position[X] + ((1 - step_x) / 2)) / ray_dir[X]), (wall_map_pos[X] - position[X] + ((1 - step_x) / 2)) / ray_dir[X] ) ;
+				perpendicular_dist = abs_d((wall_map_pos[X] - mlx->camera.position.x + (1 - step_x) / 2) / ray_dir[X]);
 			else
-				perpendicular_dist = ternary_d((wall_map_pos[Y] - position[Y] + ((1 - step_y) / 2)) / ray_dir[Y] < 0, -((wall_map_pos[Y] - position[Y] + ((1 - step_y) / 2)) / ray_dir[Y]), (wall_map_pos[Y] - position[Y] + ((1 - step_y) / 2)) / ray_dir[Y] ) ;
+				perpendicular_dist = abs_d((wall_map_pos[Y] - mlx->camera.position.y + (1 - step_y) / 2) / ray_dir[Y]);
 
 			double wall_line_height = HEIGHT / perpendicular_dist;
 			draw_line(&mlx->img,
@@ -146,7 +146,7 @@ int	render(t_mlx *mlx)
 
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
 		mlx->unlook = 0;
-		free(position);
+		// free(position);
 		free(direction);
 		free(camera_plane);
 	}

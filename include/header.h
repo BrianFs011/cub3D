@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/14 13:49:59 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:17:30 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,20 @@ typedef struct s_points
 {
 	double	x;
 	double	y;
-	double	z;
+	double	x1;
+	double	y1;
 }t_points;
 
 typedef struct s_camera
 {
 	t_points	position;
-	t_points	looking;
+	t_points	direction;
 	t_points	plane;
-	double	modulo_cam;
-	double	phi;
-	double	theta;
+	t_points	pixel;
+	t_points	ray_dir;
+	double		modulo_cam;
+	double		phi;
+	double		theta;
 }t_camera;
 
 typedef struct s_mlx
@@ -66,7 +69,6 @@ typedef struct s_mlx
 	int			radius;
 }t_mlx;
 
-
 //------ MATHS ------
 double	degrees_to_radians(double degree);
 double	ray_to_plane(double direction, double plane, double multiple);
@@ -74,12 +76,17 @@ double	ray_multiple(int i);
 double	magnitude(int delta_x, int delta_y);
 double	abs_d(double value);
 //vectors_d
-void		vector_print_d(double *v);
+void	vector_print_d(double *v);
 double	*vector_add_d(double *v1, double *v2);
 double	*vector_emultiple_d(double *v1, double escalar);
 double	*vector_rotate(double *v, double angle);
 //vectors_i
-void		vector_print_i(int *v);
+void	vector_print_i(int *v);
+//vectors_p
+t_points	vector_rotate_p(t_points p, double angle);
+t_points	vector_add(t_points v1, t_points v2);
+t_points	vector_emultiple(t_points v, double escalar);
+t_points	vector_init(double p0, double p1, double p2, double p3);
 
 //------ FT_UTILS ------
 //ft_utils.c
