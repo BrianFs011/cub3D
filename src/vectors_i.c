@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 08:54:07 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/14 10:07:59 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:03:14 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,3 @@ double	*vector_emultiple_i(double *v1, double escalar)
 		v3[i] = v1[i] * escalar;
 	return (v3);
 }
-

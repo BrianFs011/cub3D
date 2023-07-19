@@ -22,8 +22,8 @@ CAMERA=camera.c                               #Arquivos referentes a camera
 PERSONAGEM=                                   #Arquivos referentes ao personagem
 
 LIBX=window.c image.c                         #Arquivos referentes a minilibx
-
-SRCS=$(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX)
+ENGINE=engine.c engine_utils.c
+SRCS=$(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(ENGINE)
 #VARIABLES
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include

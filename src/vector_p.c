@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 09:26:29 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/17 15:13:38 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:04:53 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ t_points	vector_rotate_p(t_points p, double angle)
 {
 	t_points	r;
 
-	r.x = p.x * cos(degrees_to_radians(angle)) + p.y * sin(degrees_to_radians(angle));
-	r.y = p.x * -sin(degrees_to_radians(angle)) + p.y * cos(degrees_to_radians(angle));
+	r.x = p.x * cos(degrees_to_radians(angle));
+	r.x += p.y * sin(degrees_to_radians(angle));
+	r.y = p.x * -sin(degrees_to_radians(angle));
+	r.y += p.y * cos(degrees_to_radians(angle));
 	return (r);
 }
 
