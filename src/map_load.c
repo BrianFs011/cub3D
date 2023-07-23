@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 03:26:50 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 03:55:39 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_points	find_personage(char *string, t_points cp, int i)
 		{
 			p.x = (double)i + 0.5;
 			p.y = (double)j + 0.5;
-			printf("%lf %lf %d %d\n", p.x, p.y, i, j);
 			return (p);
 		}
 	}
