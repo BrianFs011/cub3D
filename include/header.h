@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/18 21:02:16 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 02:22:58 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int			ternary_int(int condition, int a, int b);
 double		ternary_d(int condition, double a, double b);
 
 //------ MAP ------
-void		map_load(t_mlx *mlx);
+void		map_load(t_mlx *mlx, char **argv);
 void		clear_memory_map(t_mlx *mlx);
 
 //------ DRAWS ------

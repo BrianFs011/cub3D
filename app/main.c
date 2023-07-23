@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/18 21:00:32 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 02:48:10 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 
 	(void)argc;
-	(void)argv;
 	mlx.unlook = 1;
-	map_load(&mlx);
+	cam_init(&mlx);
+	map_load(&mlx, argv);
 	window_init(&mlx);
 	image_init(&mlx);
-	cam_init(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, render, &mlx);
 	mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, close_program, &mlx);
