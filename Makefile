@@ -41,7 +41,7 @@ $(OBJ)/%.o: $(SRC)/%.c
 	$(CC) -c $(FLAGS) $(HEADER) $< -o $@ $(LIBS)
 
 $(LIBFT):
-	make -C $(LIB)/libft
+	make bonus -C $(LIB)/libft
 
 $(OBJ):
 	mkdir $@
@@ -53,7 +53,7 @@ run: all
 	$(BIN)/$(NAME) maps/map1.cub
 
 check: all
-	valgrind $(VAL_FLAGS) $(BIN)/$(NAME)
+	valgrind $(VAL_FLAGS) $(BIN)/$(NAME) maps/map1.cub
 
 norm:
 	norminette -R CheckForbiddenSourceHeader

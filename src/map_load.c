@@ -6,28 +6,11 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 03:55:39 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 21:27:15 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-int	map_size(int fd)
-{
-	int		i;
-	char	*string;
-
-	i = 0;
-	string = get_next_line(fd);
-	while (string)
-	{
-		free(string);
-		string = get_next_line(fd);
-		i++;
-	}
-	lseek(fd, 0, SEEK_SET);
-	return (i);
-}
 
 t_points	find_personage(char *string, t_points cp, int i)
 {
@@ -37,6 +20,7 @@ t_points	find_personage(char *string, t_points cp, int i)
 	j = -1;
 	p.x = cp.x;
 	p.y = cp.y;
+	// printf("%s\n", string);
 	while (string[++j])
 	{
 		if (string[j] == 'N'
@@ -52,34 +36,109 @@ t_points	find_personage(char *string, t_points cp, int i)
 	return (p);
 }
 
-void	get_map(t_mlx *mlx, int fd)
+void	get_map(t_mlx *mlx)
 {
 	int		i;
-	char	*string;
+	t_list	*aux;
 
-	mlx->map_size = map_size(fd);
-	mlx->map = malloc(sizeof(char *) * mlx->map_size + sizeof(char *));
+	i = ft_lstsize(mlx->file_loaded);
+	// printf("%d\n", i);
+	mlx->map = malloc(sizeof(char *) * i + sizeof(char *));
 	i = -1;
-	string = get_next_line(fd);
-	mlx->camera.position = find_personage(string, mlx->camera.position, i);
-	while (string)
+	aux = mlx->file_loaded;
+	mlx->camera.position = find_personage(aux->content,
+			mlx->camera.position, i);
+	while (aux && aux->next)
 	{
-		mlx->map[++i] = string;
-		mlx->camera.position = find_personage(string, mlx->camera.position, i);
-		string = get_next_line(fd);
+		mlx->map[++i] = aux->content;
+		mlx->camera.position = find_personage(aux->content,
+				mlx->camera.position, i);
+		aux = aux->next;
 	}
 	mlx->map[++i] = NULL;
+	// printf("%lf %lf\n", mlx->camera.position.x, mlx->camera.position.y);
 }
 
-void	map_load(t_mlx *mlx, char **argv)
+void	get_file(t_mlx *mlx, char **argv)
 {
-	int	fd;
+	int		fd;
+	char	*string;
 
 	(void)mlx;
+	(void)string;
 	fd = open(argv[1], O_RDONLY);
-	get_map(mlx, fd);
+	string = get_next_line(fd);
+	mlx->file_loaded = ft_lstnew(string);
+	while (string)
+	{
+		string = get_next_line(fd);
+		ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
+	}
 	close(fd);
 }
+
+void	get_style(t_mlx *mlx)
+{
+	t_list	*aux;
+	char	*string;
+	int		check;
+
+	check = 0;
+	aux = mlx->file_loaded;
+	while (aux && aux->next && check < 21)
+	{
+		string = mlx->file_loaded->content;
+		printf("%s", string);
+		if (!ft_strncmp(string, "NO", 2))
+		{
+			check += 1;
+		}
+		else if (!ft_strncmp(string, "SO", 2))
+		{
+			check += 2;
+			// printf("%s\n", string);
+		}
+		else if (!ft_strncmp(string, "WE", 2))
+		{
+			check += 3;
+			// printf("%s\n", string);
+		}
+		else if (!ft_strncmp(string, "EA", 2))
+		{
+			check += 4;
+			// printf("%s\n", string);
+		}
+		else if (!ft_strncmp(string, "F ", 2))
+		{
+			check += 5;
+			string = ft_substr(string, 2, ft_strlen(string));
+			char **split = ft_split(string, ',');
+			mlx->camera.color_floor = create_trgb(0, ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
+			// printf("%d %d\n", mlx->camera.color_floor, create_trgb(0, 220, 100, 0));
+		}
+		else if (!ft_strncmp(string, "C ", 2))
+		{
+			check += 6;
+			string = ft_substr(string, 2, ft_strlen(string));
+			char **split = ft_split(string, ',');
+			mlx->camera.color_floor = create_trgb(0, ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
+		}
+		aux = mlx->file_loaded;
+		mlx->file_loaded = mlx->file_loaded->next;
+		free(aux);
+		// printf("%s\n", (char *)aux->content);
+	}
+	if (check != 21)
+		mlx->error.error = 1;
+}
+
+// void	map_load(t_mlx *mlx, char **argv)
+// {
+
+// 	(void)mlx;
+// 	(void)argv;
+// 	// get_map(mlx, fd);
+// }
 
 void	clear_memory_map(t_mlx *mlx)
 {

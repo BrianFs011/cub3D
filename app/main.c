@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 03:59:00 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 21:26:28 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,28 @@ int	check_personage(t_mlx mlx)
 	return (1);
 }
 
+void	del(void *d)
+{
+	char	*string;
+
+	string = d;
+	free(string);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
 	(void)argc;
 	mlx.unlook = 1;
+	mlx.error.error = 0;
+	mlx.error.error_message = "Não definido";
+	mlx.file_loaded = NULL;
 	cam_init(&mlx);
-	map_load(&mlx, argv);
-	if (check_personage(mlx))
+	get_file(&mlx, argv);
+	get_style(&mlx);
+	get_map(&mlx);
+	if (!mlx.error.error)
 	{
 		set_orientation(&mlx);
 		window_init(&mlx);
@@ -64,9 +77,11 @@ int	main(int argc, char **argv)
 		mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
 		mlx_hook(mlx.win_ptr, 17, 0, close_program, &mlx);
 		mlx_hook(mlx.win_ptr, 2, 1L << 0, NULL, NULL);
+		// printf("aqi\n");
 		mlx_loop(mlx.mlx_ptr);
 	}
 	else
-		printf("Erro, personagem não encontrado\n");
+		printf("%s\n", mlx.error.error_message);
+	ft_lstclear(&mlx.file_loaded, &del);
 	return (0);
 }

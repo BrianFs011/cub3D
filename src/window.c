@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:49:04 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/11 09:54:18 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 20:42:17 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	close_program(t_mlx *mlx)
 	mlx_destroy_display(mlx->mlx_ptr);
 	free(mlx->mlx_ptr);
 	clear_memory_map(mlx);
+	ft_lstclear(&mlx->file_loaded, &del);
 	exit(EXIT_SUCCESS);
 	return (0);
 }

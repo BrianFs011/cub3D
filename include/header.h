@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 02:22:58 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/23 21:15:13 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,23 @@ typedef struct s_camera
 	double		modulo_cam;
 	double		phi;
 	double		theta;
+	int			color_floor;
+	int			color_ceil;
 }t_camera;
 
+typedef struct s_error
+{
+	int		error;
+	char	*error_message;
+}t_error;
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_camera	camera;
 	t_data		img;
+	t_list		*file_loaded;
+	t_error		error;
 	char		**map;
 	int			map_size;
 	int			unlook;
@@ -107,9 +116,13 @@ t_points	vector_init(double p0, double p1, double p2, double p3);
 //ft_utils.c
 int			ternary_int(int condition, int a, int b);
 double		ternary_d(int condition, double a, double b);
+void		del(void *d);
 
 //------ MAP ------
-void		map_load(t_mlx *mlx, char **argv);
+void		get_file(t_mlx *mlx, char **argv);
+void		get_style(t_mlx *mlx);
+void		get_map(t_mlx *mlx);
+// void		map_load(t_mlx *mlx, char **argv);
 void		clear_memory_map(t_mlx *mlx);
 
 //------ DRAWS ------
