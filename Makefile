@@ -8,7 +8,7 @@ LIBFT=$(LIB)/libft/bin/libft.a
 INCLUDE=./include
 NAME=cub3D
 #FILES
-MAP=map_load.c
+MAP=map_load.c texture.c
 GNL=get_next_line_utils.c get_next_line.c
 MATHS=math.c vectors_d.c vectors_i.c vector_p.c
 FT_UTILS=ft_utils.c

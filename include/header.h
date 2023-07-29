@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/18 21:02:16 by briferre         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:49:03 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-# define HEIGHT 600
-# define WIDTH 600
+#define HEIGHT 480
+#define WIDTH 640
+#define texHeight 64
+#define texWidth 64
 # define X 0
 # define Y 1
 # define Z 2
@@ -70,6 +72,7 @@ typedef struct s_camera
 	double		modulo_cam;
 	double		phi;
 	double		theta;
+	int			orientation;
 }t_camera;
 
 typedef struct s_mlx
@@ -78,6 +81,15 @@ typedef struct s_mlx
 	void		*win_ptr;
 	t_camera	camera;
 	t_data		img;
+	t_data		txt_img_NO;
+	t_data		txt_img_SO;
+	t_data		txt_img_WE;
+	t_data		txt_img_EA;
+	int			textureNO[texWidth][texHeight];
+	int			textureSO[texWidth][texHeight];
+	int			textureWE[texWidth][texHeight];
+	int			textureEA[texWidth][texHeight];
+	int			x_texture;
 	char		**map;
 	int			map_size;
 	int			unlook;
@@ -118,7 +130,11 @@ void		load_background(t_data *data);
 void		draw_rect(t_data *data, int *p, int color);
 
 void		draw_line(t_data *data, int *p, int color);
+void		draw_line_texture(t_data *data, int *p, t_mlx *mlx);
 void		draw_objects(t_mlx *mlx);
+
+//------ TEXTURES ------
+void	initialize_textures(t_mlx *mlx);
 
 //------- DRAW UTILS --------
 int			*vector_points_i(int p0, int p1, int p2, int p3);
