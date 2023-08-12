@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 12:21:51 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/12 12:46:25 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 
 	if (!validate_args(argc, argv))
-		return (0);
+		return (1);
 	mlx.unlook = 1;
 	mlx.error.error = 0;
 	mlx.error.error_message = "Não definido";
