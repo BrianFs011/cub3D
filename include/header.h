@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 13:08:09 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:56:47 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_mlx
 	t_error		error;
 	char		**map;
 	int			map_size;
+	int			map_height;
+	int			line_width;
 	int			unlook;
 	int			radius;
 }t_mlx;
@@ -122,6 +124,7 @@ void		exit_error(char *error);
 
 //------ MAP ------
 void		validate_args(int argc, char **argv);
+int			ft_map_validation(t_mlx *mlx);
 void		get_file(t_mlx *mlx, char **argv);
 void		get_style(t_mlx *mlx);
 void		get_map(t_mlx *mlx);

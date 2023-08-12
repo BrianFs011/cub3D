@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 13:09:39 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:21:02 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_map(t_mlx *mlx)
 	t_list	*aux;
 
 	i = ft_lstsize(mlx->file_loaded);
-	// printf("%d\n", i);
+	mlx->map_height = ft_lstsize(mlx->file_loaded);
 	mlx->map = malloc(sizeof(char *) * i + sizeof(char *));
 	i = -1;
 	aux = mlx->file_loaded;
@@ -56,7 +56,12 @@ void	get_map(t_mlx *mlx)
 		aux = aux->next;
 	}
 	mlx->map[++i] = NULL;
-	// printf("%lf %lf\n", mlx->camera.position.x, mlx->camera.position.y);
+	if (ft_map_validation(mlx))
+	{
+		mlx->error.error = 1;
+		mlx->error.error_message = "Error\nMap configuration is incorrect";
+		clear_memory_map(mlx);
+	}
 }
 
 void	get_file(t_mlx *mlx, char **argv)
