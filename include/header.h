@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 12:19:54 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/12 13:08:09 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ t_points	vector_init(double p0, double p1, double p2, double p3);
 int			ternary_int(int condition, int a, int b);
 double		ternary_d(int condition, double a, double b);
 void		del(void *d);
-int			print_msg(char *str, char *detail, int exit_nb);
+void		exit_error(char *error);
 
 //------ MAP ------
-int			validate_args(int argc, char **argv);
+void		validate_args(int argc, char **argv);
 void		get_file(t_mlx *mlx, char **argv);
 void		get_style(t_mlx *mlx);
 void		get_map(t_mlx *mlx);

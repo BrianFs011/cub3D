@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_load.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 21:27:15 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/12 13:09:39 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,13 @@ void	get_file(t_mlx *mlx, char **argv)
 	(void)mlx;
 	(void)string;
 	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		exit_error("An error occured when opening .cub file");
 	string = get_next_line(fd);
 	mlx->file_loaded = ft_lstnew(string);
 	while (string)
 	{
+		// printf("%s", string);
 		string = get_next_line(fd);
 		ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
 	}

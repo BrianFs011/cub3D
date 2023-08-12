@@ -50,7 +50,7 @@ $(BIN):
 	mkdir $@
 
 run: all
-	$(BIN)/$(NAME) maps/map1.cub
+	$(BIN)/$(NAME) maps/map2.cub
 
 check: all
 	valgrind $(VAL_FLAGS) $(BIN)/$(NAME) maps/map1.cub
