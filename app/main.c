@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 21:26:28 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/12 12:21:51 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	(void)argc;
+	if (!validate_args(argc, argv))
+		return (0);
 	mlx.unlook = 1;
 	mlx.error.error = 0;
 	mlx.error.error_message = "Não definido";
