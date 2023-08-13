@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 17:56:47 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/12 21:56:48 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define Y 1
 # define Z 2
 # define PI 3.14159265
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_data
 {
@@ -91,6 +93,7 @@ typedef struct s_mlx
 	char		**map;
 	int			map_size;
 	int			map_height;
+	int			map_width;
 	int			line_width;
 	int			unlook;
 	int			radius;
@@ -124,7 +127,10 @@ void		exit_error(char *error);
 
 //------ MAP ------
 void		validate_args(int argc, char **argv);
-int			ft_map_validation(t_mlx *mlx);
+int			check_map(t_mlx *mlx);
+int			check_map_vertically(t_mlx *mlx);
+
+//------ MAP ------
 void		get_file(t_mlx *mlx, char **argv);
 void		get_style(t_mlx *mlx);
 void		get_map(t_mlx *mlx);

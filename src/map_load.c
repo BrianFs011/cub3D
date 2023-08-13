@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 19:21:02 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:01:00 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	get_map(t_mlx *mlx)
 		aux = aux->next;
 	}
 	mlx->map[++i] = NULL;
-	if (ft_map_validation(mlx))
+	if (check_map(mlx) || check_map_vertically(mlx))
 	{
 		mlx->error.error = 1;
 		mlx->error.error_message = "Error\nMap configuration is incorrect";
