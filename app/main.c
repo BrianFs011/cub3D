@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 15:02:15 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:08:40 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	mlx.unlook = 1;
-	mlx.error.error = 0;
+	mlx.error.type = 0;
 	mlx.error.error_message = "Não definido";
 	mlx.file_loaded = NULL;
 	cam_init(&mlx);
 	get_file(&mlx, argv);
 	get_style(&mlx);
 	get_map(&mlx);
-	if (!mlx.error.error)
+	if (!mlx.error.type)
 	{
 		set_orientation(&mlx);
 		window_init(&mlx);

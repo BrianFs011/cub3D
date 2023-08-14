@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 14:55:27 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:05:08 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_tex_name(char **tex_name, char *string)
 	i = 2;
 	while (string[++i] && string[i] == ' ')
 		;
-	*tex_name = ft_substr(string, i, ft_strlen(string) - i);
+	*tex_name = ft_substr(string, i, ft_strlen(string) - i - 1);
 	if (tex_name)
 		return (1);
 	return (0);
@@ -77,13 +77,13 @@ void	get_style(t_mlx *mlx)
 	while (aux)
 	{
 		string = aux->content;
-		if (!ft_strncmp(string, "NO", 2))
+		if (!ft_strncmp(string, "NO ", 3))
 			check += get_tex_name(&mlx->map.tex_no, string);
-		else if (!ft_strncmp(string, "SO", 2))
+		else if (!ft_strncmp(string, "SO ", 3))
 			check += get_tex_name(&mlx->map.tex_so, string);
-		else if (!ft_strncmp(string, "WE", 2))
+		else if (!ft_strncmp(string, "WE ", 3))
 			check += get_tex_name(&mlx->map.tex_we, string);
-		else if (!ft_strncmp(string, "EA", 2))
+		else if (!ft_strncmp(string, "EA ", 3))
 			check += get_tex_name(&mlx->map.tex_ea, string);
 		else if (!ft_strncmp(string, "F ", 2))
 			check += get_floor_ceil(mlx, string, 1);
@@ -92,7 +92,7 @@ void	get_style(t_mlx *mlx)
 		aux = aux->next;
 	}
 	if (check != 6)
-		mlx->error.error = 1;
+		set_error(&mlx->error, "Invalid map\n");
 }
 
 void	get_map(t_mlx *mlx)

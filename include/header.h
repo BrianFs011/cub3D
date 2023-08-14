@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 15:26:16 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:00:54 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_camera
 
 typedef struct s_error
 {
-	int		error;
+	int		type;
 	char	*error_message;
 }t_error;
 
@@ -137,6 +137,9 @@ char		*ft_strcpy(char *src, int src_free);
 
 //free.c
 void		clear_tex_name(t_mlx *mlx);
+
+//error.c
+void		set_error(t_error *error, char *msg);
 
 //------ MAP ------
 void		get_file(t_mlx *mlx, char **argv);
