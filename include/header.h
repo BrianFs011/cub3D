@@ -6,9 +6,10 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 14:57:41 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:26:16 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef HEADER_H
 # define HEADER_H
@@ -18,6 +19,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <X11/keysym.h>
 # include "get_next_line.h"
 # include "libft.h"
 

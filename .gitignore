@@ -1,3 +1,7 @@
 rascunhos
 bin
 obj
+.vscode
+mlx.h
+libmlx*.a
+minilibx/
