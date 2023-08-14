@@ -10,6 +10,8 @@ NAME=cub3D
 #FILES
 
 # Utils
+MAP=map_load.c texture.c
+GNL=get_next_line_utils.c get_next_line.c
 MATHS=math.c vectors_d.c vectors_i.c vector_p.c
 GNL=get_next_line_utils.c get_next_line.c
 FT_UTILS=ft_utils.c ft_str.c free.c error.c
