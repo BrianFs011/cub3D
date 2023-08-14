@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 21:15:13 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:57:41 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ typedef struct s_camera
 	double		modulo_cam;
 	double		phi;
 	double		theta;
-	int			color_floor;
-	int			color_ceil;
 }t_camera;
 
 typedef struct s_error
@@ -79,18 +77,31 @@ typedef struct s_error
 	int		error;
 	char	*error_message;
 }t_error;
+
+typedef struct s_map
+{
+	char		**matrix;
+	char		*tex_no;
+	char		*tex_so;
+	char		*tex_we;
+	char		*tex_ea;
+	int			color_floor;
+	int			color_ceil;
+	int			size;
+
+}t_map;
+
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	int			unlook;
+	int			radius;
+	t_map		map;
 	t_camera	camera;
 	t_data		img;
 	t_list		*file_loaded;
 	t_error		error;
-	char		**map;
-	int			map_size;
-	int			unlook;
-	int			radius;
 }t_mlx;
 
 //------ MATHS ------
@@ -116,18 +127,28 @@ t_points	vector_init(double p0, double p1, double p2, double p3);
 //ft_utils.c
 int			ternary_int(int condition, int a, int b);
 double		ternary_d(int condition, double a, double b);
+void		free_split(char **string);
 void		del(void *d);
+
+//ft_str.c
+char		*ft_strcpy(char *src, int src_free);
+
+//free.c
+void		clear_tex_name(t_mlx *mlx);
 
 //------ MAP ------
 void		get_file(t_mlx *mlx, char **argv);
 void		get_style(t_mlx *mlx);
 void		get_map(t_mlx *mlx);
 // void		map_load(t_mlx *mlx, char **argv);
-void		clear_memory_map(t_mlx *mlx);
+
+//------ PERSONAGE ------
+void		set_orientation(t_mlx *mlx);
+t_points	find_personage(char *string, t_points cp, int i);
 
 //------ DRAWS ------
 //draw_rectangle.c
-void		load_background(t_data *data);
+void		load_background(t_data *data, int floor, int ceil);
 void		draw_rect(t_data *data, int *p, int color);
 
 void		draw_line(t_data *data, int *p, int color);

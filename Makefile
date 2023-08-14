@@ -8,22 +8,25 @@ LIBFT=$(LIB)/libft/bin/libft.a
 INCLUDE=./include
 NAME=cub3D
 #FILES
-MAP=map_load.c
-GNL=get_next_line_utils.c get_next_line.c
+
+# Utils
 MATHS=math.c vectors_d.c vectors_i.c vector_p.c
-FT_UTILS=ft_utils.c
+GNL=get_next_line_utils.c get_next_line.c
+FT_UTILS=ft_utils.c ft_str.c free.c
+
+# Draw
 PRIMITIVES=primitives.c           #Arquivos referentes a primitivas
 BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes a formas geometricas basicas
 DRAW_UTILS=draw_utils.c
 
-EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
-
+# Game
+MAP=map_load.c
 CAMERA=camera.c                               #Arquivos referentes a camera
-PERSONAGEM=                                   #Arquivos referentes ao personagem
-
+PERSONAGE=personage.c                         #Arquivos referentes ao personagem
+EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
 LIBX=window.c image.c                         #Arquivos referentes a minilibx
 ENGINE=engine.c engine_utils.c
-SRCS=$(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(ENGINE)
+SRCS=$(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(PERSONAGE) $(ENGINE)
 #VARIABLES
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include

@@ -6,58 +6,11 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 21:27:15 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:55:27 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-t_points	find_personage(char *string, t_points cp, int i)
-{
-	t_points	p;
-	int			j;
-
-	j = -1;
-	p.x = cp.x;
-	p.y = cp.y;
-	// printf("%s\n", string);
-	while (string[++j])
-	{
-		if (string[j] == 'N'
-			|| string[j] == 'S'
-			|| string[j] == 'E'
-			|| string[j] == 'W')
-		{
-			p.x = (double)i + 0.5;
-			p.y = (double)j + 0.5;
-			return (p);
-		}
-	}
-	return (p);
-}
-
-void	get_map(t_mlx *mlx)
-{
-	int		i;
-	t_list	*aux;
-
-	i = ft_lstsize(mlx->file_loaded);
-	// printf("%d\n", i);
-	mlx->map = malloc(sizeof(char *) * i + sizeof(char *));
-	i = -1;
-	aux = mlx->file_loaded;
-	mlx->camera.position = find_personage(aux->content,
-			mlx->camera.position, i);
-	while (aux && aux->next)
-	{
-		mlx->map[++i] = aux->content;
-		mlx->camera.position = find_personage(aux->content,
-				mlx->camera.position, i);
-		aux = aux->next;
-	}
-	mlx->map[++i] = NULL;
-	// printf("%lf %lf\n", mlx->camera.position.x, mlx->camera.position.y);
-}
 
 void	get_file(t_mlx *mlx, char **argv)
 {
@@ -68,13 +21,49 @@ void	get_file(t_mlx *mlx, char **argv)
 	(void)string;
 	fd = open(argv[1], O_RDONLY);
 	string = get_next_line(fd);
-	mlx->file_loaded = ft_lstnew(string);
+	ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
 	while (string)
 	{
 		string = get_next_line(fd);
-		ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
+		if (string)
+			ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
 	}
 	close(fd);
+}
+
+int	get_tex_name(char **tex_name, char *string)
+{
+	int	i;
+
+	i = 2;
+	while (string[++i] && string[i] == ' ')
+		;
+	*tex_name = ft_substr(string, i, ft_strlen(string) - i);
+	if (tex_name)
+		return (1);
+	return (0);
+}
+
+int	get_floor_ceil(t_mlx *mlx, char *string, int floor)
+{
+	char	**split;
+	char	*aux_string;
+
+	aux_string = ft_substr(string, 2, ft_strlen(string));
+	split = ft_split(aux_string, ',');
+	if (floor)
+		mlx->map.color_floor = create_trgb(0,
+				ft_atoi(split[0]),
+				ft_atoi(split[1]),
+				ft_atoi(split[2]));
+	else
+		mlx->map.color_ceil = create_trgb(0,
+				ft_atoi(split[0]),
+				ft_atoi(split[1]),
+				ft_atoi(split[2]));
+	free (aux_string);
+	free_split(split);
+	return (1);
 }
 
 void	get_style(t_mlx *mlx)
@@ -85,67 +74,44 @@ void	get_style(t_mlx *mlx)
 
 	check = 0;
 	aux = mlx->file_loaded;
-	while (aux && aux->next && check < 21)
+	while (aux)
 	{
-		string = mlx->file_loaded->content;
-		printf("%s", string);
+		string = aux->content;
 		if (!ft_strncmp(string, "NO", 2))
-		{
-			check += 1;
-		}
+			check += get_tex_name(&mlx->map.tex_no, string);
 		else if (!ft_strncmp(string, "SO", 2))
-		{
-			check += 2;
-			// printf("%s\n", string);
-		}
+			check += get_tex_name(&mlx->map.tex_so, string);
 		else if (!ft_strncmp(string, "WE", 2))
-		{
-			check += 3;
-			// printf("%s\n", string);
-		}
+			check += get_tex_name(&mlx->map.tex_we, string);
 		else if (!ft_strncmp(string, "EA", 2))
-		{
-			check += 4;
-			// printf("%s\n", string);
-		}
+			check += get_tex_name(&mlx->map.tex_ea, string);
 		else if (!ft_strncmp(string, "F ", 2))
-		{
-			check += 5;
-			string = ft_substr(string, 2, ft_strlen(string));
-			char **split = ft_split(string, ',');
-			mlx->camera.color_floor = create_trgb(0, ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
-			// printf("%d %d\n", mlx->camera.color_floor, create_trgb(0, 220, 100, 0));
-		}
+			check += get_floor_ceil(mlx, string, 1);
 		else if (!ft_strncmp(string, "C ", 2))
-		{
-			check += 6;
-			string = ft_substr(string, 2, ft_strlen(string));
-			char **split = ft_split(string, ',');
-			mlx->camera.color_floor = create_trgb(0, ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
-		}
-		aux = mlx->file_loaded;
-		mlx->file_loaded = mlx->file_loaded->next;
-		free(aux);
-		// printf("%s\n", (char *)aux->content);
+			check += get_floor_ceil(mlx, string, 0);
+		aux = aux->next;
 	}
-	if (check != 21)
+	if (check != 6)
 		mlx->error.error = 1;
 }
 
-// void	map_load(t_mlx *mlx, char **argv)
-// {
-
-// 	(void)mlx;
-// 	(void)argv;
-// 	// get_map(mlx, fd);
-// }
-
-void	clear_memory_map(t_mlx *mlx)
+void	get_map(t_mlx *mlx)
 {
-	int	i;
+	int		i;
+	t_list	*aux;
 
+	i = ft_lstsize(mlx->file_loaded);
+	mlx->map.matrix = malloc(sizeof(char *) * i + sizeof(char *));
 	i = -1;
-	while (++i < mlx->map_size && mlx->map[i])
-		free(mlx->map[i]);
-	free(mlx->map);
+	aux = mlx->file_loaded;
+	mlx->camera.position = find_personage(aux->content,
+			mlx->camera.position, i);
+	while (aux)
+	{
+		mlx->map.matrix[++i] = aux->content;
+		mlx->camera.position = find_personage(aux->content,
+				mlx->camera.position, i);
+		aux = aux->next;
+	}
+	mlx->map.matrix[++i] = NULL;
 }

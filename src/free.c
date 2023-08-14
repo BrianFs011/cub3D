@@ -1,48 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 20:04:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 14:32:59 by briferre         ###   ########.fr       */
+/*   Created: 2023/08/14 14:45:53 by briferre          #+#    #+#             */
+/*   Updated: 2023/08/14 14:46:12 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	ternary_int(int condition, int a, int b)
+void	clear_tex_name(t_mlx *mlx)
 {
-	if (condition)
-		return (a);
-	return (b);
-}
-
-double	ternary_d(int condition, double a, double b)
-{
-	if (condition)
-		return (a);
-	return (b);
-}
-
-void	free_split(char **string)
-{
-	int	i;
-
-	if (!string)
-		return ;
-	i = -1;
-	while (string[++i])
-		free(string[i]);
-	free(string);
-}
-
-void	del(void *d)
-{
-	char	*string;
-
-	(void)d;
-	string = d;
-	free(string);
+	free(mlx->map.tex_ea);
+	free(mlx->map.tex_no);
+	free(mlx->map.tex_so);
+	free(mlx->map.tex_we);
 }

@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:20:56 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/18 21:17:55 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:30:12 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	key_w(t_mlx *mlx)
 
 	a = mlx->camera.theta;
 	y = mlx->camera.position.y + 0.2 * cos(degrees_to_radians(a));
-	if (mlx->map[(int)(mlx->camera.position.x)][(int)(y)] != '1')
+	if (mlx->map.matrix[(int)(mlx->camera.position.x)][(int)(y)] != '1')
 		mlx->camera.position.y += 0.1 * cos(degrees_to_radians(a));
 	x = mlx->camera.position.x + 0.2 * sin(degrees_to_radians(a));
-	if (mlx->map[(int)(x)][(int)(mlx->camera.position.y)] != '1')
+	if (mlx->map.matrix[(int)(x)][(int)(mlx->camera.position.y)] != '1')
 		mlx->camera.position.x += 0.1 * sin(degrees_to_radians(a));
 }
 
@@ -35,10 +35,10 @@ void	key_s(t_mlx *mlx)
 
 	a = mlx->camera.theta;
 	y = mlx->camera.position.y - 0.2 * cos(degrees_to_radians(a));
-	if (mlx->map[(int)(mlx->camera.position.x)][(int)(y)] != '1')
+	if (mlx->map.matrix[(int)(mlx->camera.position.x)][(int)(y)] != '1')
 		mlx->camera.position.y -= 0.1 * cos(degrees_to_radians(a));
 	x = mlx->camera.position.x - 0.2 * sin(degrees_to_radians(a));
-	if (mlx->map[(int)(x)][(int)(mlx->camera.position.y)] != '1')
+	if (mlx->map.matrix[(int)(x)][(int)(mlx->camera.position.y)] != '1')
 		mlx->camera.position.x -= 0.1 * sin(degrees_to_radians(a));
 }
 

@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/23 03:16:43 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/12 11:45:53 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 		}
 		p[0] = mlx->camera.wall_map_pos.x;
 		p[1] = mlx->camera.wall_map_pos.y;
-		if (mlx->map[p[0]][p[1]] == '1')
+		if (mlx->map.matrix[p[0]][p[1]] == '1')
 			hit = 1;
 	}
 }
