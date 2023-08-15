@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:09:31 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:46:24 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	draw_line_texture(t_data *data, int *p, t_mlx *mlx)
 
 	y_texture = 0;
 	x_texture = (int)(p[0] / 3) % TEXWIDTH;
-	y_texture_step = TEXHEIGHT / HEIGHT;
-	y_texture_step /= mlx->camera.perpendicular_dist;
+	y_texture_step = TEXHEIGHT;
+	y_texture_step /= (float)(HEIGHT / mlx->camera.perpendicular_dist);
 	while (p[2] < p[3])
 	{
 		texture = get_texture_pixel(mlx,

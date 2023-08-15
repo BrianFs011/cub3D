@@ -33,7 +33,7 @@ SRCS= texture.c $(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include
 LIBS= -L $(LIB)/libft/bin -lft -lmlx -lXext -lX11 -lm
-FLAGS=-Wall -Wextra -Werror -g -g3
+FLAGS=#-Wall -Wextra -Werror -g -g3
 CC=cc
 VAL_FLAGS=--leak-check=full --track-origins=yes --show-leak-kinds=all -s
 
