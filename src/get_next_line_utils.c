@@ -6,13 +6,13 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 14:07:06 by briferre          #+#    #+#             */
-/*   Updated: 2022/07/16 20:32:18 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/12 11:51:50 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./get_next_line.h"
 
-void	ft_strcpy(char *dest, char *src, int size_line)
+void	ft_cpy(char *dest, char *src, int size_line)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ char	*ft_insert(char *line, char word, int *i, int *size_line)
 	{
 		(*size_line) *= 2;
 		new_line = (char *)malloc((sizeof(char) * (*size_line)) + 1);
-		ft_strcpy(new_line, line, (*size_line));
+		ft_cpy(new_line, line, (*size_line));
 		new_line[*i] = word;
 		new_line[(*size_line)] = '\0';
 		free(line);

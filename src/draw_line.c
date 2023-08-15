@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/06/22 17:31:20 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:50:19 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	draw_line(t_data *data, int *p, int color)
 		error[1] = 2 * error[0];
 		if (error[1] > -delta[Y])
 		{
-				error[0] -= delta[Y];
-				p[0] += ternary_int(p[0] < p[1], 1, -1);
+			error[0] -= delta[Y];
+			p[0] += ternary_int(p[0] < p[1], 1, -1);
 		}
 		if (error[1] < delta[X])
 		{
-				error[0] += delta[X];
-				p[2] += ternary_int(p[2] < p[3], 1, -1);
+			error[0] += delta[X];
+			p[2] += ternary_int(p[2] < p[3], 1, -1);
 		}
 	}
 	free(p);

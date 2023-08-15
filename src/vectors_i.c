@@ -1,48 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   vectors_i.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 20:04:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 14:32:59 by briferre         ###   ########.fr       */
+/*   Created: 2023/07/14 08:54:07 by briferre          #+#    #+#             */
+/*   Updated: 2023/07/18 21:03:14 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	ternary_int(int condition, int a, int b)
+void	vector_print_i(int *v)
 {
-	if (condition)
-		return (a);
-	return (b);
+	printf("[%d, %d, %d, %d]\n", v[0], v[1], v[2], v[3]);
 }
 
-double	ternary_d(int condition, double a, double b)
+double	*vector_add_i(double *v1, double *v2)
 {
-	if (condition)
-		return (a);
-	return (b);
-}
+	int		i;
+	double	*v3;
 
-void	free_split(char **string)
-{
-	int	i;
-
-	if (!string)
-		return ;
+	v3 = malloc(sizeof(double) * 4);
 	i = -1;
-	while (string[++i])
-		free(string[i]);
-	free(string);
+	while (++i < 4)
+		v3[i] = v1[i] + v2[i];
+	return (v3);
 }
 
-void	del(void *d)
+double	*vector_emultiple_i(double *v1, double escalar)
 {
-	char	*string;
+	int		i;
+	double	*v3;
 
-	(void)d;
-	string = d;
-	free(string);
+	v3 = malloc(sizeof(double) * 4);
+	i = -1;
+	while (++i < 4)
+		v3[i] = v1[i] * escalar;
+	return (v3);
 }
