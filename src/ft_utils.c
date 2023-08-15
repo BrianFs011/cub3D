@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 20:04:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 14:32:59 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:44:48 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ int	ternary_int(int condition, int a, int b)
 }
 
 double	ternary_d(int condition, double a, double b)
+{
+	if (condition)
+		return (a);
+	return (b);
+}
+
+enum e_cardinal	ternary_e(int condition, enum e_cardinal a, enum e_cardinal b)
 {
 	if (condition)
 		return (a);

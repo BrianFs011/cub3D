@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 16:49:53 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:13:55 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,14 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 			mlx->camera.wall_map_pos.x += step[X];
 			mlx->camera.dda_line_size.x += mlx->camera.delta_dist.x;
 			mlx->camera.hit_side = 0;
-			if (mlx->camera.ray_dir.x > 0)
-				mlx->camera.orientation = 0;
-			else
-				mlx->camera.orientation = 1;
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, no, so);
 		}
 		else
 		{
 			mlx->camera.wall_map_pos.y += step[Y];
 			mlx->camera.dda_line_size.y += mlx->camera.delta_dist.y;
 			mlx->camera.hit_side = 1;
-			if (mlx->camera.ray_dir.y > 0)
-				mlx->camera.orientation = 2;
-			else
-				mlx->camera.orientation = 3;
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, we, ea);
 		}
 		p[0] = mlx->camera.wall_map_pos.x;
 		p[1] = mlx->camera.wall_map_pos.y;

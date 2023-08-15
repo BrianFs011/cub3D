@@ -1,17 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 13:58:12 by briferre          #+#    #+#             */
+/*   Updated: 2023/08/15 15:10:21 by briferre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
-
-void	save_texture_pixels(t_mlx *mlx);
-int		img_pix_get(t_data *img, int x, int y);
-void	init_textures(t_mlx *mlx, t_data *img, char *path);
-
-void	initialize_textures(t_mlx *mlx)
-{
-	init_textures(mlx, &mlx->txt_img_NO, "/home/sathya/backup/42/cub3d/cub3D/textures/texture1.xpm");
-	init_textures(mlx, &mlx->txt_img_SO, "/home/sathya/backup/42/cub3d/cub3D/textures/texture2.xpm");
-	init_textures(mlx, &mlx->txt_img_WE, "/home/sathya/backup/42/cub3d/cub3D/textures/texture3.xpm");
-	init_textures(mlx, &mlx->txt_img_EA, "/home/sathya/backup/42/cub3d/cub3D/textures/texture4.xpm");
-	save_texture_pixels(mlx);
-}
 
 void	init_textures(t_mlx *mlx, t_data *img, char *path)
 {
@@ -23,31 +22,40 @@ void	init_textures(t_mlx *mlx, t_data *img, char *path)
 			&img->line_length, &img->endian);
 }
 
-void	save_texture_pixels(t_mlx *mlx)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < texWidth)
-	{
-		j = 0;
-		while (j < texHeight)
-		{
-			mlx->textureNO[i][j] = img_pix_get(&mlx->txt_img_NO, j, i);
-			mlx->textureSO[i][j] = img_pix_get(&mlx->txt_img_SO, j, i);
-			mlx->textureWE[i][j] = img_pix_get(&mlx->txt_img_WE, j, i);
-			mlx->textureEA[i][j] = img_pix_get(&mlx->txt_img_EA, j, i);
-			j++;
-		}
-		i++;
-	}
-}
-
 int	img_pix_get(t_data *img, int x, int y)
 {
 	char	*pixel;
 
 	pixel = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	return (*(int *)pixel);
+}
+
+void	save_texture_pixels(t_mlx *mlx)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < TEXWIDTH)
+	{
+		j = 0;
+		while (j < TEXHEIGHT)
+		{
+			mlx->texture.no[i][j] = img_pix_get(&mlx->texture.img_no, j, i);
+			mlx->texture.so[i][j] = img_pix_get(&mlx->texture.img_so, j, i);
+			mlx->texture.we[i][j] = img_pix_get(&mlx->texture.img_we, j, i);
+			mlx->texture.ea[i][j] = img_pix_get(&mlx->texture.img_ea, j, i);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	initialize_textures(t_mlx *mlx)
+{
+	init_textures(mlx, &mlx->texture.img_no, "./textures/texture1.xpm");
+	init_textures(mlx, &mlx->texture.img_so, "./textures/texture2.xpm");
+	init_textures(mlx, &mlx->texture.img_we, "./textures/texture3.xpm");
+	init_textures(mlx, &mlx->texture.img_ea, "./textures/texture4.xpm");
+	save_texture_pixels(mlx);
 }

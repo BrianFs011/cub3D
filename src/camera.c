@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:14 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 16:49:54 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:38:37 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,4 @@ void	cam_init(t_mlx *mlx)
 	mlx->camera.plane.y = 0;
 	mlx->camera.phi = 45.0;
 	mlx->camera.theta = 0.0;
-	mlx->camera.orientation = 0;
 }
