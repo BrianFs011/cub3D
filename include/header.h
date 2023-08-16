@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 13:53:27 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:29:24 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,13 @@ void			deallocate_memory(t_mlx *mlx);
 void			set_error(t_error *error, char *msg);
 
 //------ MAP ------
+//map_load.c
 void			get_file(t_mlx *mlx, char **argv);
 void			get_style(t_mlx *mlx);
-void			get_map(t_mlx *mlx);
-// void		map_load(t_mlx *mlx, char **argv);
+void			read_map(t_mlx *mlx);
+void			get_map(t_mlx *mlx, char **argv);
+//map_utils.c
+int				get_tex_name(char **tex_name, char *string);
 
 //------ PERSONAGE ------
 void			set_orientation(t_mlx *mlx);

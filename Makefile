@@ -10,7 +10,6 @@ NAME=cub3D
 #FILES
 
 # Utils
-MAP=map_load.c
 GNL=get_next_line_utils.c get_next_line.c
 MATHS=math.c vectors_d.c vectors_i.c vector_p.c
 GNL=get_next_line_utils.c get_next_line.c
@@ -22,13 +21,13 @@ BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes
 DRAW_UTILS=draw_utils.c
 
 # Game
-MAP=map_load.c
+MAP=map_load.c map_utils.c texture.c
 CAMERA=camera.c                               #Arquivos referentes a camera
 PERSONAGE=personage.c                         #Arquivos referentes ao personagem
 EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
 LIBX=window.c image.c                         #Arquivos referentes a minilibx
 ENGINE=engine.c engine_utils.c
-SRCS= texture.c $(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(PERSONAGE) $(ENGINE)
+SRCS= $(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(PERSONAGE) $(ENGINE)
 #VARIABLES
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include

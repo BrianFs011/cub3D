@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 13:54:26 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:28:08 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,6 @@ void	get_file(t_mlx *mlx, char **argv)
 			ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
 	}
 	close(fd);
-}
-
-int	get_tex_name(char **tex_name, char *string)
-{
-	int	i;
-
-	i = 2;
-	while (string[++i] && string[i] == ' ')
-		;
-	*tex_name = ft_substr(string, i, ft_strlen(string) - i - 1);
-	if (tex_name)
-		return (1);
-	return (0);
 }
 
 int	get_floor_ceil(t_mlx *mlx, char *string, int floor)
@@ -95,7 +82,7 @@ void	get_style(t_mlx *mlx)
 		set_error(&mlx->error, "Invalid map\n");
 }
 
-void	get_map(t_mlx *mlx)
+void	read_map(t_mlx *mlx)
 {
 	int		i;
 	t_list	*aux;
@@ -114,4 +101,11 @@ void	get_map(t_mlx *mlx)
 		aux = aux->next;
 	}
 	mlx->map.matrix[++i] = NULL;
+}
+
+void	get_map(t_mlx *mlx, char **argv)
+{
+	get_file(mlx, argv);
+	get_style(mlx);
+	read_map(mlx);
 }

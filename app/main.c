@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:10:55 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:28:30 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int	main(int argc, char **argv)
 	mlx.error.error_message = "Não definido";
 	mlx.file_loaded = NULL;
 	cam_init(&mlx);
-	get_file(&mlx, argv);
-	get_style(&mlx);
-	get_map(&mlx);
+	get_map(&mlx, argv);
 	set_orientation(&mlx);
 	window_init(&mlx);
 	image_init(&mlx);
