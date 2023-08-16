@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:29:24 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:45:15 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void			read_map(t_mlx *mlx);
 void			get_map(t_mlx *mlx, char **argv);
 //map_utils.c
 int				get_tex_name(char **tex_name, char *string);
+int				check_rgb(int rgb[3]);
 
 //------ PERSONAGE ------
 void			set_orientation(t_mlx *mlx);

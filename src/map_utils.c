@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:23:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:25:10 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:45:02 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,15 @@ int	get_tex_name(char **tex_name, char *string)
 		return (1);
 	return (0);
 }
+
+int	check_rgb(int rgb[3])
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		if (rgb[i] < 0 || rgb[i] > 255)
+			return (0);
+	return (1);
+}
+
