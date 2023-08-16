@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 13:07:20 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/15 23:35:12 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,16 @@ void	set_orientation(t_mlx *mlx)
 		mlx->camera.theta = 0;
 }
 
-int	check_personage(t_mlx mlx)
+void	validate_args(int argc, char **argv)
 {
-	if (mlx.camera.position.x == -1 && mlx.camera.position.y == -1)
-		return (0);
-	return (1);
+	int	offset;
+
+	if (argc != 2)
+		exit_error("Invalid number of arguments. \
+			Correct usage: ./cub3D <map_address>");
+	offset = ft_strlen(argv[1]) - 4;
+	if (ft_strncmp(".cub", argv[1] + offset, 5) != 0)
+		exit_error("Invalid type of map file. Map file must be .cub");
 }
 
 void	del(void *d)
