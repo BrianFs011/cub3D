@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:49:04 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:32:03 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:07:57 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ void	window_init(t_mlx *mlx)
 
 int	close_program(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_ea.img);
-	mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_no.img);
-	mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_so.img);
-	mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_we.img);
+	if (mlx->texture.img_ea.img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_ea.img);
+	if (mlx->texture.img_no.img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_no.img);
+	if (mlx->texture.img_so.img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_so.img);
+	if (mlx->texture.img_we.img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->texture.img_we.img);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->img.img);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	mlx_destroy_display(mlx->mlx_ptr);

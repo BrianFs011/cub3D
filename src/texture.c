@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 13:58:12 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:10:21 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:09:48 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	init_textures(t_mlx *mlx, t_data *img, char *path)
 	int	width;
 
 	img->img = mlx_xpm_file_to_image(mlx->mlx_ptr, path, &width, &height);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-			&img->line_length, &img->endian);
+	if (!img->img)
+		set_error(&mlx->error, "Textura não encontrada");
+	if (!mlx->error.type)
+		img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+				&img->line_length, &img->endian);
 }
 
 int	img_pix_get(t_data *img, int x, int y)
@@ -53,9 +56,22 @@ void	save_texture_pixels(t_mlx *mlx)
 
 void	initialize_textures(t_mlx *mlx)
 {
-	init_textures(mlx, &mlx->texture.img_no, "./textures/texture1.xpm");
-	init_textures(mlx, &mlx->texture.img_so, "./textures/texture2.xpm");
-	init_textures(mlx, &mlx->texture.img_we, "./textures/texture3.xpm");
-	init_textures(mlx, &mlx->texture.img_ea, "./textures/texture4.xpm");
-	save_texture_pixels(mlx);
+	if (!mlx->error.type)
+		init_textures(mlx, &mlx->texture.img_no, mlx->texture.path_no);
+	else
+		mlx->texture.img_no.img = NULL;
+	if (!mlx->error.type)
+		init_textures(mlx, &mlx->texture.img_so, mlx->texture.path_so);
+	else
+		mlx->texture.img_so.img = NULL;
+	if (!mlx->error.type)
+		init_textures(mlx, &mlx->texture.img_we, mlx->texture.path_we);
+	else
+		mlx->texture.img_we.img = NULL;
+	if (!mlx->error.type)
+		init_textures(mlx, &mlx->texture.img_ea, mlx->texture.path_ea);
+	else
+		mlx->texture.img_ea.img = NULL;
+	if (!mlx->error.type)
+		save_texture_pixels(mlx);
 }

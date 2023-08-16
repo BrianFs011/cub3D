@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:46:52 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:10:55 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	main(int argc, char **argv)
 	get_file(&mlx, argv);
 	get_style(&mlx);
 	get_map(&mlx);
+	set_orientation(&mlx);
+	window_init(&mlx);
+	image_init(&mlx);
 	if (!mlx.error.type)
 	{
-		set_orientation(&mlx);
-		window_init(&mlx);
-		image_init(&mlx);
 		mlx_loop_hook(mlx.mlx_ptr, render, &mlx);
 		mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
 		mlx_hook(mlx.win_ptr, 17, 0, close_program, &mlx);
@@ -50,5 +50,6 @@ int	main(int argc, char **argv)
 	}
 	else
 		printf("%s\n", mlx.error.error_message);
+	close_program(&mlx);
 	return (0);
 }

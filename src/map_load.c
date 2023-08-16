@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 16:05:08 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:54:26 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	get_style(t_mlx *mlx)
 	{
 		string = aux->content;
 		if (!ft_strncmp(string, "NO ", 3))
-			check += get_tex_name(&mlx->map.tex_no, string);
+			check += get_tex_name(&mlx->texture.path_no, string);
 		else if (!ft_strncmp(string, "SO ", 3))
-			check += get_tex_name(&mlx->map.tex_so, string);
+			check += get_tex_name(&mlx->texture.path_so, string);
 		else if (!ft_strncmp(string, "WE ", 3))
-			check += get_tex_name(&mlx->map.tex_we, string);
+			check += get_tex_name(&mlx->texture.path_we, string);
 		else if (!ft_strncmp(string, "EA ", 3))
-			check += get_tex_name(&mlx->map.tex_ea, string);
+			check += get_tex_name(&mlx->texture.path_ea, string);
 		else if (!ft_strncmp(string, "F ", 2))
 			check += get_floor_ceil(mlx, string, 1);
 		else if (!ft_strncmp(string, "C ", 2))

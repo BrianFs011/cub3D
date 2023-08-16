@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:27:25 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:53:27 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,6 @@ typedef struct s_error
 typedef struct s_map
 {
 	char		**matrix;
-	char		*tex_no;
-	char		*tex_so;
-	char		*tex_we;
-	char		*tex_ea;
 	int			color_floor;
 	int			color_ceil;
 	int			size;
@@ -105,6 +101,10 @@ typedef struct s_tex
 	int			we[TEXWIDTH][TEXHEIGHT];
 	int			ea[TEXWIDTH][TEXHEIGHT];
 	int			x_texture;
+	char		*path_no;
+	char		*path_so;
+	char		*path_we;
+	char		*path_ea;
 }t_tex;
 typedef struct s_mlx
 {

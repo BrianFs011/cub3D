@@ -6,13 +6,11 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:46:24 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:47:47 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-// int	get_texture_pixel(t_mlx *mlx, int x, int y, int pos);
 
 void	draw_line(t_data *data, int *p, int color)
 {
