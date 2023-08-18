@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 20:01:00 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:28:12 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,7 @@ void	get_map(t_mlx *mlx)
 	}
 	mlx->map[++i] = NULL;
 	if (check_map(mlx) || check_map_vertically(mlx))
-	{
-		mlx->error.error = 1;
-		mlx->error.error_message = "Error\nMap configuration is incorrect";
 		clear_memory_map(mlx);
-	}
 }
 
 void	get_file(t_mlx *mlx, char **argv)
@@ -73,7 +69,7 @@ void	get_file(t_mlx *mlx, char **argv)
 	(void)string;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		exit_error("An error occured when opening .cub file");
+		exit_error(FD_ERROR);
 	string = get_next_line(fd);
 	mlx->file_loaded = ft_lstnew(string);
 	while (string)

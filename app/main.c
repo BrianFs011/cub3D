@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 23:35:12 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:04:03 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ void	validate_args(int argc, char **argv)
 	int	offset;
 
 	if (argc != 2)
-		exit_error("Invalid number of arguments. \
-			Correct usage: ./cub3D <map_address>");
+		exit_error(ARGUMENT_ERROR);
 	offset = ft_strlen(argv[1]) - 4;
 	if (ft_strncmp(".cub", argv[1] + offset, 5) != 0)
-		exit_error("Invalid type of map file. Map file must be .cub");
+		exit_error(FILE_TYPE_ERROR);
 }
 
 void	del(void *d)

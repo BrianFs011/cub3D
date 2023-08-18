@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 21:56:48 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:40:38 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 # define PI 3.14159265
 # define TRUE 1
 # define FALSE 0
+# define ARGUMENT_ERROR "Error\nInvalid quantity of arguments. Correct usage: ./cub3D <map_address>"
+# define FD_ERROR "Error\nAn error occured when opening .cub file"
+# define FILE_TYPE_ERROR "Error\nInvalid type of map file. Map file must be .cub"
+# define MAP_CONFIG_ERROR "Error\nInvalid configuration of map. Map must be surrounded by walls"
+# define PLAYER_ERROR "Error\nInvalid quantity of Players. Map must have one player represented by N, S, E or W"
+# define CHAR_ERROR "Error\nInvalid character in Map."
 
 typedef struct s_data
 {
@@ -124,6 +130,7 @@ int			ternary_int(int condition, int a, int b);
 double		ternary_d(int condition, double a, double b);
 void		del(void *d);
 void		exit_error(char *error);
+int			set_error_msg(t_mlx *mlx, char *error_msg);
 
 //------ MAP ------
 void		validate_args(int argc, char **argv);

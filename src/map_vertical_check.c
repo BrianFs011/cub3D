@@ -17,10 +17,10 @@ static int	check_map_col(t_mlx *mlx, int *inside_map, int i, int j)
 	if (mlx->map[i][j] == ' ' && *inside_map == TRUE)
 		if (mlx->map[i - 1][j] != '1')
 			return (1);
-	if (mlx->map[i][j] == ' ' && *inside_map == FALSE && \
+	if (mlx->map[i][j] == ' ' && *inside_map == FALSE &&
 		mlx->map[i + 1] != NULL)
-		if (mlx->map[i + 1][j] != '1' && \
-			mlx->map[i + 1][j] != ' ' && \
+		if (mlx->map[i + 1][j] != '1' &&
+			mlx->map[i + 1][j] != ' ' &&
 			mlx->map[i + 1][j] != '\n')
 			return (1);
 	if (mlx->map[i][j] == '1' && *inside_map == FALSE)
@@ -29,7 +29,7 @@ static int	check_map_col(t_mlx *mlx, int *inside_map, int i, int j)
 		*inside_map = FALSE;
 	if (mlx->map[i][j] == '0' && *inside_map == FALSE)
 		return (1);
-	if (mlx->map[i][j] == '0' && *inside_map == TRUE && \
+	if (mlx->map[i][j] == '0' && *inside_map == TRUE &&
 		mlx->map[i + 1] == NULL)
 		return (1);
 	return (0);
@@ -63,7 +63,7 @@ int	check_map_vertically(t_mlx *mlx)
 		while (mlx->map[++i] != NULL)
 		{
 			if (check_map_col(mlx, &inside_map, i, j) == 1)
-				return (1);
+				return (set_error_msg(mlx, MAP_CONFIG_ERROR));
 		}
 		inside_map = FALSE;
 	}

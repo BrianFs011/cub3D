@@ -14,9 +14,9 @@
 
 static int	check_char(char c)
 {
-	if (c != '1' && c != '0' && \
-		c != ' ' && c != '\n' && \
-		c != 'N' && c != 'S' && \
+	if (c != '1' && c != '0' &&
+		c != ' ' && c != '\n' &&
+		c != 'N' && c != 'S' &&
 		c != 'E' && c != 'W')
 		return (1);
 	return (0);
@@ -24,7 +24,7 @@ static int	check_char(char c)
 
 static int	check_player(t_mlx *mlx, int *player, int i, int j)
 {
-	if ((mlx->map[i][j]== 'N' || mlx->map[i][j]== 'S' || \
+	if ((mlx->map[i][j]== 'N' || mlx->map[i][j]== 'S' ||
 		mlx->map[i][j] == 'E' || mlx->map[i][j] == 'W'))
 	{
 		*player += 1;
@@ -44,8 +44,8 @@ static int	check_line(t_mlx *mlx, int *inside_map, int i, int j)
 		if (mlx->map[i][j - 1] != '1')
 			return (1);
 	if (mlx->map[i][j] == ' ' && *inside_map == FALSE)
-		if (mlx->map[i][j + 1] != '1' && \
-			mlx->map[i][j + 1] != ' ' && \
+		if (mlx->map[i][j + 1] != '1' &&
+			mlx->map[i][j + 1] != ' ' &&
 			mlx->map[i][j + 1] != '\n')
 			return (1);
 	if (mlx->map[i][j] == '1' && *inside_map == FALSE)
@@ -54,7 +54,7 @@ static int	check_line(t_mlx *mlx, int *inside_map, int i, int j)
 		*inside_map = 0;
 	if (mlx->map[i][j] == '0' && *inside_map == FALSE)
 		return (1);
-	if (mlx->map[i][j] == '0' && *inside_map == TRUE && \
+	if (mlx->map[i][j] == '0' && *inside_map == TRUE &&
 		j == mlx->line_width - 2)
 		return (1);
 	return (0);
@@ -77,15 +77,15 @@ int	check_map(t_mlx *mlx)
 		while (mlx->map[i][++j] != '\0')
 		{
 			if (check_char(mlx->map[i][j]))
-				return (1);
+				return (set_error_msg(mlx, CHAR_ERROR));
 			if (check_player(mlx, &player, i, j))
-				return (1);
+				return (set_error_msg(mlx, PLAYER_ERROR));
 			if (check_line(mlx, &inside_map, i, j))
-				return (1);
+				return (set_error_msg(mlx, MAP_CONFIG_ERROR));
 		}
 		inside_map = FALSE;
 	}
 	if (player != 1)
-		return (1);
+		return (set_error_msg(mlx, PLAYER_ERROR));
 	return (0);
 }
