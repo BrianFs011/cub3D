@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/19 03:34:03 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/19 03:51:07 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	get_style(t_mlx *mlx)
 	mlx->map.tex_no = NULL;
 	mlx->map.tex_so = NULL;
 	mlx->map.tex_we = NULL;
+	mlx->map.matrix = NULL;
 	while (aux)
 	{
 		string = aux->content;
@@ -162,5 +163,4 @@ void	get_map(t_mlx *mlx)
 	mlx->map.matrix[++i] = NULL;
 	if (check_map(mlx) || check_map_vertically(mlx))
 		exit_error(mlx->error.error_message, mlx);
-	// clear_memory_map(mlx);
 }
