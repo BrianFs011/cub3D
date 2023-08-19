@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:49:04 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 14:32:49 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/19 03:39:07 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	close_program(t_mlx *mlx)
 	free(mlx->mlx_ptr);
 	clear_tex_name(mlx);
 	ft_lstclear(&mlx->file_loaded, del);
+	free(mlx->map.matrix);
 	exit(EXIT_SUCCESS);
 	return (0);
 }

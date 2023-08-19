@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 16:08:40 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/19 02:11:21 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,22 @@ int	render(t_mlx *mlx)
 	return (0);
 }
 
+void	validate_args(int argc, char **argv)
+{
+	int	offset;
+
+	if (argc != 2)
+		exit_error(ARGUMENT_ERROR, NULL);
+	offset = ft_strlen(argv[1]) - 4;
+	if (ft_strncmp(".cub", argv[1] + offset, 5) != 0)
+		exit_error(FILE_TYPE_ERROR, NULL);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	(void)argc;
+	validate_args(argc, argv);
 	mlx.unlook = 1;
 	mlx.error.type = 0;
 	mlx.error.error_message = "Não definido";
