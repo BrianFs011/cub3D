@@ -9,7 +9,7 @@ INCLUDE=./include
 NAME=cub3D
 
 #FILES
-MAP=map_horizontal_check.c map_vertical_check.c map_load.c
+MAP=map_horizontal_check.c map_vertical_check.c map_load.c map_style.c
 GNL=get_next_line_utils.c get_next_line.c
 
 # Utils

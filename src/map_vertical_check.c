@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_vertical_check.c                                   :+:      :+:    :+:   */
+/*   map_vertical_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 11:23:38 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/08/15 22:32:00 by sde-cama         ###   ########.fr       */
+/*   Created: 2023/08/21 02:53:35 by sde-cama          #+#    #+#             */
+/*   Updated: 2023/08/21 02:53:54 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_map_col(t_mlx *mlx, int *inside_map, int i, int j)
 
 void	find_map_width(t_mlx *mlx)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	mlx->map_width = 0;
@@ -52,7 +52,7 @@ int	check_map_vertically(t_mlx *mlx)
 {
 	int	i;
 	int	j;
-	int		inside_map;
+	int	inside_map;
 
 	inside_map = FALSE;
 	find_map_width(mlx);

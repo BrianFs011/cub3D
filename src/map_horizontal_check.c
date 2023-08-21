@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_horizontal_check.c                                   :+:      :+:    :+:   */
+/*   map_horizontal_check.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 11:23:38 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/08/15 22:32:00 by sde-cama         ###   ########.fr       */
+/*   Created: 2023/08/21 02:52:35 by sde-cama          #+#    #+#             */
+/*   Updated: 2023/08/21 03:03:01 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	check_char(char c)
 {
-	if (c != '1' && c != '0' &&
-		c != ' ' && c != '\n' &&
-		c != 'N' && c != 'S' &&
+	if (c != '1' && c != '0' && \
+		c != ' ' && c != '\n' && \
+		c != 'N' && c != 'S' && \
 		c != 'E' && c != 'W')
 		return (1);
 	return (0);
@@ -30,9 +30,11 @@ static int	check_player(t_mlx *mlx, int *player, int i, int j)
 		*player += 1;
 		if (*player > 1)
 			return (1);
-		if (mlx->map.matrix[i][j + 1] != '0' && mlx->map.matrix[i][j + 1] != '1')
+		if (mlx->map.matrix[i][j + 1] != '0' &&
+			mlx->map.matrix[i][j + 1] != '1')
 			return (1);
-		if (mlx->map.matrix[i][j - 1] != '0' && mlx->map.matrix[i][j - 1] != '1')
+		if (mlx->map.matrix[i][j - 1] != '0' &&
+			mlx->map.matrix[i][j - 1] != '1')
 			return (1);
 	}
 	return (0);

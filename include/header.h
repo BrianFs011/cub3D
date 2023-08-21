@@ -6,10 +6,9 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/19 02:06:29 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/21 03:19:03 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef HEADER_H
 # define HEADER_H
@@ -31,11 +30,14 @@
 # define PI 3.14159265
 # define TRUE 1
 # define FALSE 0
-# define ARGUMENT_ERROR "Error\nInvalid quantity of arguments. Correct usage: ./cub3D <map_address>"
+# define ARGUMENT_ERROR "Error\nInvalid quantity of arguments. \
+							Correct usage: ./cub3D <map_address>"
 # define FD_ERROR "Error\nAn error occured when opening .cub file"
 # define FILE_TYPE_ERROR "Error\nInvalid type of map file. Map file must be .cub"
-# define MAP_CONFIG_ERROR "Error\nInvalid configuration of map. Map must be surrounded by walls"
-# define PLAYER_ERROR "Error\nInvalid quantity of Players. Map must have one player represented by N, S, E or W"
+# define MAP_CONFIG_ERROR "Error\nInvalid configuration of map. \
+							Map must be surrounded by walls"
+# define PLAYER_ERROR "Error\nInvalid quantity of Players. Map must have one \
+						player represented by N, S, E or W"
 # define CHAR_ERROR "Error\nInvalid character in Map."
 # define MAP_STYLE_ERROR "Error\nInvalid configuration of map style."
 
@@ -151,6 +153,9 @@ int			set_error_msg(t_mlx *mlx, char *error_msg);
 void		validate_args(int argc, char **argv);
 int			check_map(t_mlx *mlx);
 int			check_map_vertically(t_mlx *mlx);
+int			get_tex_name(char **tex_name, char *string);
+int			get_floor_ceil(t_mlx *mlx, char *string, int floor);
+void		get_style(t_mlx *mlx);
 
 //ft_str.c
 char		*ft_strcpy(char *src, int src_free);
