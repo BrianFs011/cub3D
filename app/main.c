@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/19 02:11:21 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/21 03:12:27 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,25 @@ void	validate_args(int argc, char **argv)
 		exit_error(FILE_TYPE_ERROR, NULL);
 }
 
+void	init_variables(t_mlx *mlx)
+{
+	mlx->unlook = 1;
+	mlx->error.type = 0;
+	mlx->error.error_message = "Não definido";
+	mlx->file_loaded = NULL;
+	mlx->map.tex_ea = NULL;
+	mlx->map.tex_no = NULL;
+	mlx->map.tex_so = NULL;
+	mlx->map.tex_we = NULL;
+	mlx->map.matrix = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
 	validate_args(argc, argv);
-	mlx.unlook = 1;
-	mlx.error.type = 0;
-	mlx.error.error_message = "Não definido";
-	mlx.file_loaded = NULL;
+	init_variables(&mlx);
 	cam_init(&mlx);
 	get_file(&mlx, argv);
 	get_style(&mlx);
