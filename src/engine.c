@@ -6,16 +6,17 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:13:55 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/17 16:57:11 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	find_wall_pos(t_mlx *mlx, int step[2])
+void	find_wall_pos(t_mlx *mlx, int step[2], int i)
 {
 	int	hit;
 	int	p[2];
+	static int	t;
 
 	hit = 0;
 	while (hit == 0)
@@ -25,12 +26,13 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 			mlx->camera.wall_map_pos.x += step[X];
 			mlx->camera.dda_line_size.x += mlx->camera.delta_dist.x;
 			mlx->camera.hit_side = 0;
-			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, no, so);
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, so, no);
 		}
 		else
 		{
 			mlx->camera.wall_map_pos.y += step[Y];
 			mlx->camera.dda_line_size.y += mlx->camera.delta_dist.y;
+			mlx->teste += mlx->camera.delta_dist.y;
 			mlx->camera.hit_side = 1;
 			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, we, ea);
 		}
@@ -38,6 +40,12 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 		p[1] = mlx->camera.wall_map_pos.y;
 		if (mlx->map.matrix[p[0]][p[1]] == '1')
 			hit = 1;
+	}
+	if (mlx->camera.cardinal == no) // definir a textura para cada proco do mapa
+	{
+		// mlx->teste++;
+		t = (int)mlx->camera.dda_line_size.y;
+		printf("%d %f\n", i, mlx->teste);
 	}
 }
 
@@ -89,9 +97,10 @@ void	horizontal_loop(t_mlx *mlx, int i)
 	dist_to_side_y(mlx, step);
 	mlx->camera.dda_line_size.x = mlx->camera.dist_to_side.x;
 	mlx->camera.dda_line_size.y = mlx->camera.dist_to_side.y;
+	mlx->teste = mlx->camera.dist_to_side.y;
 	mlx->camera.wall_map_pos.x = mlx->camera.map_pos.x;
 	mlx->camera.wall_map_pos.y = mlx->camera.map_pos.y;
-	find_wall_pos(mlx, step);
+	find_wall_pos(mlx, step, i);
 	perpendicular_dist(mlx, step);
 	draw(mlx, i);
 }
