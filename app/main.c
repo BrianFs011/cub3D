@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/21 03:12:27 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:22:30 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	init_variables(t_mlx *mlx)
 	mlx->error.type = 0;
 	mlx->error.error_message = "Não definido";
 	mlx->file_loaded = NULL;
-	mlx->map.tex_ea = NULL;
-	mlx->map.tex_no = NULL;
-	mlx->map.tex_so = NULL;
-	mlx->map.tex_we = NULL;
+	mlx->texture.path_ea = NULL;
+	mlx->texture.path_no = NULL;
+	mlx->texture.path_so = NULL;
+	mlx->texture.path_we = NULL;
 	mlx->map.matrix = NULL;
 }
 
@@ -55,14 +55,12 @@ int	main(int argc, char **argv)
 	validate_args(argc, argv);
 	init_variables(&mlx);
 	cam_init(&mlx);
-	get_file(&mlx, argv);
-	get_style(&mlx);
-	get_map(&mlx);
+	get_map(&mlx, argv);
+	set_orientation(&mlx);
+	window_init(&mlx);
+	image_init(&mlx);
 	if (!mlx.error.type)
 	{
-		set_orientation(&mlx);
-		window_init(&mlx);
-		image_init(&mlx);
 		mlx_loop_hook(mlx.mlx_ptr, render, &mlx);
 		mlx_key_hook(mlx.win_ptr, &handle_key_press, &mlx);
 		mlx_hook(mlx.win_ptr, 17, 0, close_program, &mlx);
@@ -71,5 +69,6 @@ int	main(int argc, char **argv)
 	}
 	else
 		printf("%s\n", mlx.error.error_message);
+	close_program(&mlx);
 	return (0);
 }

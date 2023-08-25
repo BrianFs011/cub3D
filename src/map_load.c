@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/21 03:17:31 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:13:01 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_list	*find_map_position(t_list *file_loaded)
 	return (file_loaded);
 }
 
-void	get_map(t_mlx *mlx)
+void	read_map(t_mlx *mlx)
 {
 	int		i;
 	t_list	*aux;
@@ -82,4 +82,11 @@ void	get_map(t_mlx *mlx)
 	mlx->map.matrix[++i] = NULL;
 	if (check_map(mlx) || check_map_vertically(mlx))
 		exit_error(mlx->error.error_message, mlx);
+}
+
+void	get_map(t_mlx *mlx, char **argv)
+{
+	get_file(mlx, argv);
+	get_style(mlx);
+	read_map(mlx);
 }

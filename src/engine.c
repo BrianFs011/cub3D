@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 11:45:53 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:13:55 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 			mlx->camera.wall_map_pos.x += step[X];
 			mlx->camera.dda_line_size.x += mlx->camera.delta_dist.x;
 			mlx->camera.hit_side = 0;
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, no, so);
 		}
 		else
 		{
 			mlx->camera.wall_map_pos.y += step[Y];
 			mlx->camera.dda_line_size.y += mlx->camera.delta_dist.y;
 			mlx->camera.hit_side = 1;
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, we, ea);
 		}
 		p[0] = mlx->camera.wall_map_pos.x;
 		p[1] = mlx->camera.wall_map_pos.y;
@@ -63,12 +65,12 @@ void	draw(t_mlx *mlx, int i)
 	double	wall_line_height;
 
 	wall_line_height = HEIGHT / mlx->camera.perpendicular_dist;
-	draw_line(&mlx->img,
+	draw_line_texture(&mlx->img,
 		vector_points_i(i,
 			i,
 			(HEIGHT / 2) - (wall_line_height / 2),
 			(HEIGHT / 2) + (wall_line_height / 2)),
-		create_trgb(0, ternary_d(mlx->camera.hit_side, 255, 128), 0, 0));
+		mlx);
 }
 
 void	horizontal_loop(t_mlx *mlx, int i)

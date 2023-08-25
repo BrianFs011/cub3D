@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 14:50:19 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:47:47 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,41 @@ void	draw_line(t_data *data, int *p, int color)
 			error[0] += delta[X];
 			p[2] += ternary_int(p[2] < p[3], 1, -1);
 		}
+	}
+	free(p);
+}
+
+int	get_texture_pixel(t_mlx *mlx, int x, int y, enum e_cardinal pos)
+{
+	if (pos == no)
+		return (mlx->texture.so[y][x]);
+	else if (pos == we)
+		return (mlx->texture.we[y][x]);
+	else if (pos == ea)
+		return (mlx->texture.ea[y][x]);
+	return (mlx->texture.no[y][x]);
+}
+
+void	draw_line_texture(t_data *data, int *p, t_mlx *mlx)
+{
+	int		texture;
+	double	x_texture;
+	double	y_texture;
+	double	y_texture_step;
+
+	y_texture = 0;
+	x_texture = (int)(p[0] / 3) % TEXWIDTH;
+	y_texture_step = TEXHEIGHT;
+	y_texture_step /= (float)(HEIGHT / mlx->camera.perpendicular_dist);
+	while (p[2] < p[3])
+	{
+		texture = get_texture_pixel(mlx,
+				x_texture,
+				y_texture,
+				mlx->camera.cardinal);
+		my_mlx_pixel_put(data, p[0], p[2], texture);
+		p[2]++;
+		y_texture += y_texture_step;
 	}
 	free(p);
 }

@@ -6,26 +6,11 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 03:17:48 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/08/21 03:18:03 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:27:52 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-int	get_tex_name(char **tex_name, char *string)
-{
-	int	i;
-
-	i = 2;
-	while (string[++i] && string[i] == ' ')
-		;
-	if (*tex_name)
-		free(*tex_name);
-	*tex_name = ft_substr(string, i, ft_strlen(string) - i - 1);
-	if (tex_name)
-		return (1);
-	return (0);
-}
 
 int	get_floor_ceil(t_mlx *mlx, char *string, int floor)
 {
@@ -61,13 +46,13 @@ void	get_style(t_mlx *mlx)
 	{
 		string = aux->content;
 		if (!ft_strncmp(string, "NO ", 3))
-			check += get_tex_name(&mlx->map.tex_no, string);
+			check += get_tex_name(&mlx->texture.path_no, string);
 		else if (!ft_strncmp(string, "SO ", 3))
-			check += get_tex_name(&mlx->map.tex_so, string);
+			check += get_tex_name(&mlx->texture.path_so, string);
 		else if (!ft_strncmp(string, "WE ", 3))
-			check += get_tex_name(&mlx->map.tex_we, string);
+			check += get_tex_name(&mlx->texture.path_we, string);
 		else if (!ft_strncmp(string, "EA ", 3))
-			check += get_tex_name(&mlx->map.tex_ea, string);
+			check += get_tex_name(&mlx->texture.path_ea, string);
 		else if (!ft_strncmp(string, "F ", 2))
 			check += get_floor_ceil(mlx, string, 1);
 		else if (!ft_strncmp(string, "C ", 2))

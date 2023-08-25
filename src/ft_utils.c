@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 20:04:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/21 02:49:55 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/25 02:50:09 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ double	ternary_d(int condition, double a, double b)
 	return (b);
 }
 
+enum e_cardinal	ternary_e(int condition, enum e_cardinal a, enum e_cardinal b)
+{
+	if (condition)
+		return (a);
+	return (b);
+}
+
 void	free_split(char **string)
 {
 	int	i;
@@ -35,15 +42,6 @@ void	free_split(char **string)
 	i = -1;
 	while (string[++i])
 		free(string[i]);
-	free(string);
-}
-
-void	del(void *d)
-{
-	char	*string;
-
-	(void)d;
-	string = d;
 	free(string);
 }
 

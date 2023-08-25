@@ -13,6 +13,7 @@ MAP=map_horizontal_check.c map_vertical_check.c map_load.c map_style.c
 GNL=get_next_line_utils.c get_next_line.c
 
 # Utils
+GNL=get_next_line_utils.c get_next_line.c
 MATHS=math.c vectors_d.c vectors_i.c vector_p.c
 GNL=get_next_line_utils.c get_next_line.c
 FT_UTILS=ft_utils.c ft_str.c free.c error.c
@@ -23,17 +24,18 @@ BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes
 DRAW_UTILS=draw_utils.c
 
 # Game
+MAP=map_load.c map_utils.c texture.c map_horizontal_check.c map_vertical_check.c map_style.c
 CAMERA=camera.c                               #Arquivos referentes a camera
 PERSONAGE=personage.c                         #Arquivos referentes ao personagem
 EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
 LIBX=window.c image.c                         #Arquivos referentes a minilibx
 ENGINE=engine.c engine_utils.c
-SRCS=$(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(PERSONAGE) $(ENGINE)
+SRCS= $(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(PERSONAGE) $(ENGINE)
 #VARIABLES
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
 HEADER=-I $(INCLUDE) -I $(LIB)/libft/include
 LIBS= -L $(LIB)/libft/bin -lft -lmlx -lXext -lX11 -lm
-FLAGS=-Wall -Wextra -Werror -g -g3
+FLAGS=#-Wall -Wextra -Werror -g -g3
 CC=cc
 VAL_FLAGS=--leak-check=full --track-origins=yes --show-leak-kinds=all -s
 
