@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:42:46 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:51:02 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,25 +85,51 @@ void	get_style(t_mlx *mlx)
 		set_error(&mlx->error, "Invalid map\n");
 }
 
+int	check_value(void *value)
+{
+	char	*string;
+	int		i;
+
+	string = value;
+	if (!string || string[0] == '\n')
+		return (0);
+	i = -1;
+	while (string[++i] && string[i] != '\n')
+	{
+		if (!(string[i] == '1' || string[i] == '0' || string[i] == 'N'
+				|| string[i] == 'W' || string[i] == 'S' || string[i] == 'E'))
+			return (0);
+	}
+	return (1);
+}
+
 void	read_map(t_mlx *mlx)
 {
 	int		i;
+	int		size;
 	t_list	*aux;
 
-	i = ft_lstsize(mlx->file_loaded);
-	mlx->map.matrix = malloc(sizeof(char *) * i + sizeof(char *));
+	size = ft_lstsize(mlx->file_loaded);
+	mlx->map.matrix = malloc(sizeof(char *) * size + sizeof(char *));
 	i = -1;
 	aux = mlx->file_loaded;
 	mlx->camera.position = find_personage(aux->content,
 			mlx->camera.position, i);
 	while (aux)
 	{
-		mlx->map.matrix[++i] = aux->content;
-		mlx->camera.position = find_personage(aux->content,
-				mlx->camera.position, i);
+			// char *a = aux->content;
+		if (check_value(aux->content))
+		{
+			// printf("%s", a);
+		// 	printf("%s\n", a);
+			mlx->map.matrix[++i] = aux->content;
+			mlx->camera.position = find_personage(aux->content,
+					mlx->camera.position, i);
+		}
 		aux = aux->next;
 	}
-	mlx->map.matrix[++i] = NULL;
+	while (++i < size + 1)
+		mlx->map.matrix[i] = NULL;
 }
 
 void	get_map(t_mlx *mlx, char **argv)

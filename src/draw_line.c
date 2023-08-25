@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/17 16:58:00 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/25 10:52:23 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,22 @@ void	draw_line_texture(t_data *data, int *p, t_mlx *mlx)
 	double	y_texture;
 	double	y_texture_step;
 
-	y_texture = 0;
-	// x_texture = (int)((mlx->camera.dda_line_size.y - ((float)(int)mlx->camera.dda_line_size.y)) * 64); //% TEXWIDTH;
-	x_texture = (int)(mlx->camera.dda_line_size.y) % TEXWIDTH;
+	x_texture = p[1] % TEXWIDTH;
+	printf("%lf\n", x_texture);
 	y_texture_step = TEXHEIGHT;
 	y_texture_step /= (float)(HEIGHT / mlx->camera.perpendicular_dist);
-	// if (mlx->camera.cardinal == no)
-	// 	printf("%f\n", x_texture);
 	while (p[2] < p[3])
 	{
-		// if (mlx->teste < 64)
+		if (mlx->camera.cardinal == no)
+		{
 			texture = get_texture_pixel(mlx,
 					x_texture,
 					y_texture,
 					mlx->camera.cardinal);
-		my_mlx_pixel_put(data, p[0], p[2], texture);
+			my_mlx_pixel_put(data, p[0], p[2], texture);
+		}
+		else
+			my_mlx_pixel_put(data, p[0], p[2], create_trgb(0, 255, 0, 0));
 		p[2]++;
 		y_texture += y_texture_step;
 	}

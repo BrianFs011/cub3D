@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:45:15 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/25 10:41:14 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,27 @@ typedef struct s_tex
 	char		*path_we;
 	char		*path_ea;
 }t_tex;
+
+typedef struct s_plot
+{
+	int				pixel;
+	int				y0;
+	int				y1;
+	enum e_cardinal	cardinal;
+	int				wall_x;
+	int				wall_y;
+	double			perpendicular_dist;
+}t_plot;
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			unlook;
-	int			radius;
+	double	teste[2];
+	int			save;
+	int			tex;
 
+	t_plot		plot[WIDTH];
 	t_list		*file_loaded;
 	t_data		img;
 	t_camera	camera;
