@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:45:53 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/24 21:41:39 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/08/25 02:50:18 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,13 @@ void	exit_error(char *error, t_mlx *mlx)
 	}
 	ft_putendl_fd(error, 2);
 	exit(0);
+}
+
+void	del(void *d)
+{
+	char	*string;
+
+	(void)d;
+	string = d;
+	free(string);
 }
