@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:28:30 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:22:30 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,36 @@ int	render(t_mlx *mlx)
 	return (0);
 }
 
+void	validate_args(int argc, char **argv)
+{
+	int	offset;
+
+	if (argc != 2)
+		exit_error(ARGUMENT_ERROR, NULL);
+	offset = ft_strlen(argv[1]) - 4;
+	if (ft_strncmp(".cub", argv[1] + offset, 5) != 0)
+		exit_error(FILE_TYPE_ERROR, NULL);
+}
+
+void	init_variables(t_mlx *mlx)
+{
+	mlx->unlook = 1;
+	mlx->error.type = 0;
+	mlx->error.error_message = "Não definido";
+	mlx->file_loaded = NULL;
+	mlx->texture.path_ea = NULL;
+	mlx->texture.path_no = NULL;
+	mlx->texture.path_so = NULL;
+	mlx->texture.path_we = NULL;
+	mlx->map.matrix = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	(void)argc;
-	mlx.unlook = 1;
-	mlx.error.type = 0;
-	mlx.error.error_message = "Não definido";
-	mlx.file_loaded = NULL;
+	validate_args(argc, argv);
+	init_variables(&mlx);
 	cam_init(&mlx);
 	get_map(&mlx, argv);
 	set_orientation(&mlx);

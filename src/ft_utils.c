@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 20:04:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 14:44:48 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:12:31 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,11 @@ void	del(void *d)
 	(void)d;
 	string = d;
 	free(string);
+}
+
+int	set_error_msg(t_mlx *mlx, char *error_msg)
+{
+	mlx->error.type = 1;
+	mlx->error.error_message = error_msg;
+	return (1);
 }

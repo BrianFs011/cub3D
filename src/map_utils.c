@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:23:49 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/16 14:45:02 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:41:17 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	get_tex_name(char **tex_name, char *string)
 	i = 2;
 	while (string[++i] && string[i] == ' ')
 		;
+	if (*tex_name)
+		free(*tex_name);
 	*tex_name = ft_substr(string, i, ft_strlen(string) - i - 1);
 	if (tex_name)
 		return (1);

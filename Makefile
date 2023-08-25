@@ -7,7 +7,10 @@ LIB=./lib
 LIBFT=$(LIB)/libft/bin/libft.a
 INCLUDE=./include
 NAME=cub3D
+
 #FILES
+MAP=map_horizontal_check.c map_vertical_check.c map_load.c map_style.c
+GNL=get_next_line_utils.c get_next_line.c
 
 # Utils
 GNL=get_next_line_utils.c get_next_line.c
@@ -21,7 +24,7 @@ BASIC_GEOMETRIC= draw_rectangle.c draw_line.c draw_circle.c #Arquivos referentes
 DRAW_UTILS=draw_utils.c
 
 # Game
-MAP=map_load.c map_utils.c texture.c
+MAP=map_load.c map_utils.c texture.c map_horizontal_check.c map_vertical_check.c map_style.c
 CAMERA=camera.c                               #Arquivos referentes a camera
 PERSONAGE=personage.c                         #Arquivos referentes ao personagem
 EVENTS=keyboard.c                             #Arquivos referentes a ventos de teclado mouse
