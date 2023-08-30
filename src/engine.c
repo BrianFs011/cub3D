@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:13:55 by briferre         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:03:11 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 			mlx->camera.wall_map_pos.y += step[Y];
 			mlx->camera.dda_line_size.y += mlx->camera.delta_dist.y;
 			mlx->camera.hit_side = 1;
-			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, we, ea);
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.y > 0, we, ea);
 		}
 		p[0] = mlx->camera.wall_map_pos.x;
 		p[1] = mlx->camera.wall_map_pos.y;
