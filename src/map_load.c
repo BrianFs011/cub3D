@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/09/10 17:53:30 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:22:04 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	check_value(void *value)
 	while (string[++i] && string[i] != '\n')
 	{
 		if (!(string[i] == '1' || string[i] == '0' || string[i] == 'N'
-				|| string[i] == 'W' || string[i] == 'S' || string[i] == 'E'))
+				|| string[i] == 'W' || string[i] == 'S' ||string[i] == 'E'
+				|| string[i] == ' '))
 			return (0);
 	}
 	return (1);
