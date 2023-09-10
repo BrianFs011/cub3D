@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/09/10 19:42:55 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:48:36 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	draw_line_texture(t_data *data, int *p, t_mlx *mlx)
 	double	y_texture;
 	double	y_texture_step;
 
+	y_texture = 0;
 	x_texture = wall_texture_x(mlx);
 	y_texture_step = TEXHEIGHT;
 	y_texture_step /= (float)(HEIGHT / mlx->camera.perpendicular_dist);
