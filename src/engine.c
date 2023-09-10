@@ -6,13 +6,13 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/09/10 10:19:17 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:41:55 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	find_wall_pos(t_mlx *mlx, int step[2], int i)
+void	find_wall_pos(t_mlx *mlx, int step[2])
 {
 	int	hit;
 	int	p[2];
@@ -78,7 +78,7 @@ void	horizontal_loop(t_mlx *mlx, int i)
 	mlx->camera.dda_line_size.y = mlx->camera.dist_to_side.y;
 	mlx->camera.wall_map_pos.x = mlx->camera.map_pos.x;
 	mlx->camera.wall_map_pos.y = mlx->camera.map_pos.y;
-	find_wall_pos(mlx, step, i);
+	find_wall_pos(mlx, step);
 	perpendicular_dist(mlx, step);
 	draw(mlx, i);
 }
