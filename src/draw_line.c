@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/15 15:47:47 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 09:31:25 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	draw_line_texture(t_data *data, int *p, t_mlx *mlx)
 	double	y_texture;
 	double	y_texture_step;
 
-	y_texture = 0;
-	x_texture = (int)(p[0] / 3) % TEXWIDTH;
+	x_texture = wall_texture_x(mlx);
 	y_texture_step = TEXHEIGHT;
 	y_texture_step /= (float)(HEIGHT / mlx->camera.perpendicular_dist);
 	while (p[2] < p[3])

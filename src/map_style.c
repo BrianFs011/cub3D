@@ -6,33 +6,11 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 03:17:48 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/08/24 21:27:52 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:59:10 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-int	get_floor_ceil(t_mlx *mlx, char *string, int floor)
-{
-	char	**split;
-	char	*aux_string;
-
-	aux_string = ft_substr(string, 2, ft_strlen(string));
-	split = ft_split(aux_string, ',');
-	if (floor)
-		mlx->map.color_floor = create_trgb(0,
-				ft_atoi(split[0]),
-				ft_atoi(split[1]),
-				ft_atoi(split[2]));
-	else
-		mlx->map.color_ceil = create_trgb(0,
-				ft_atoi(split[0]),
-				ft_atoi(split[1]),
-				ft_atoi(split[2]));
-	free (aux_string);
-	free_split(split);
-	return (1);
-}
 
 void	get_style(t_mlx *mlx)
 {

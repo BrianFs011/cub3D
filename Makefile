@@ -33,9 +33,9 @@ ENGINE=engine.c engine_utils.c
 SRCS= $(GNL) $(MATHS) $(MAP) $(DRAW_UTILS) $(FT_UTILS) $(PRIMITIVES) $(BASIC_GEOMETRIC) $(EVENTS) $(CAMERA) $(LIBX) $(PERSONAGE) $(ENGINE)
 #VARIABLES
 OBJS=$(addprefix $(OBJ)/,$(SRCS:%.c=%.o))
-HEADER=-I $(INCLUDE) -I $(LIB)/libft/include
-LIBS= -L $(LIB)/libft/bin -lft -lmlx -lXext -lX11 -lm
-FLAGS=#-Wall -Wextra -Werror -g -g3
+HEADER=-I $(INCLUDE) -I $(LIB)/libft/include -I ./minilibx
+LIBS= -L $(LIB)/libft/bin -lft -lmlx -lXext -lX11 -lm -L ./minilibx
+FLAGS=-Wall -Wextra -Werror
 CC=cc
 VAL_FLAGS=--leak-check=full --track-origins=yes --show-leak-kinds=all -s
 
@@ -57,7 +57,7 @@ $(BIN):
 	mkdir $@
 
 run: all
-	$(BIN)/$(NAME) maps/map1.cub
+	$(BIN)/$(NAME) maps/map2.cub
 
 check: all
 	valgrind $(VAL_FLAGS) $(BIN)/$(NAME) maps/map1.cub
