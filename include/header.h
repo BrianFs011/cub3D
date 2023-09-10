@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/09/10 09:32:35 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:23:26 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void			engine(t_mlx *mlx);
 void			delta_dist(t_mlx *mlx);
 void			dist_to_side_x(t_mlx *mlx, int step[2]);
 void			dist_to_side_y(t_mlx *mlx, int step[2]);
-double		wall_texture_x(t_mlx *mlx);
+double			wall_texture_x(t_mlx *mlx);
 void			draw(t_mlx *mlx, int i);
 
 #endif
