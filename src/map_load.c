@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/24 21:13:01 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:22:04 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,49 @@ t_list	*find_map_position(t_list *file_loaded)
 	return (file_loaded);
 }
 
+int	check_value(void *value)
+{
+	char	*string;
+	int		i;
+
+	string = value;
+	if (!string || string[0] == '\n')
+		return (0);
+	i = -1;
+	while (string[++i] && string[i] != '\n')
+	{
+		if (!(string[i] == '1' || string[i] == '0' || string[i] == 'N'
+				|| string[i] == 'W' || string[i] == 'S' ||string[i] == 'E'
+				|| string[i] == ' '))
+			return (0);
+	}
+	return (1);
+}
+
 void	read_map(t_mlx *mlx)
 {
 	int		i;
+	int		size;
 	t_list	*aux;
 
-	i = ft_lstsize(mlx->file_loaded);
-	mlx->map.matrix = malloc(sizeof(char *) * i + sizeof(char *));
+	size = ft_lstsize(mlx->file_loaded);
+	mlx->map.matrix = malloc(sizeof(char *) * size + sizeof(char *));
 	i = -1;
 	aux = find_map_position(mlx->file_loaded);
 	mlx->camera.position = find_personage(aux->content,
 			mlx->camera.position, i);
 	while (aux)
 	{
-		mlx->map.matrix[++i] = aux->content;
-		mlx->camera.position = find_personage(aux->content,
-				mlx->camera.position, i);
+		if (check_value(aux->content))
+		{
+			mlx->map.matrix[++i] = aux->content;
+			mlx->camera.position = find_personage(aux->content,
+					mlx->camera.position, i);
+		}
 		aux = aux->next;
 	}
-	mlx->map.matrix[++i] = NULL;
+	while (++i < size + 1)
+		mlx->map.matrix[i] = NULL;
 	if (check_map(mlx) || check_map_vertically(mlx))
 		exit_error(mlx->error.error_message, mlx);
 }

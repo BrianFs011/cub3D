@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/29 23:03:11 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:41:55 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	find_wall_pos(t_mlx *mlx, int step[2])
 			mlx->camera.wall_map_pos.x += step[X];
 			mlx->camera.dda_line_size.x += mlx->camera.delta_dist.x;
 			mlx->camera.hit_side = 0;
-			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, no, so);
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, so, no);
 		}
 		else
 		{
@@ -58,19 +58,6 @@ void	perpendicular_dist(t_mlx *mlx, int step[2])
 		d = (1 - step[Y]) / 2;
 		mlx->camera.perpendicular_dist = abs_d((p + d) / mlx->camera.ray_dir.y);
 	}
-}
-
-void	draw(t_mlx *mlx, int i)
-{
-	double	wall_line_height;
-
-	wall_line_height = HEIGHT / mlx->camera.perpendicular_dist;
-	draw_line_texture(&mlx->img,
-		vector_points_i(i,
-			i,
-			(HEIGHT / 2) - (wall_line_height / 2),
-			(HEIGHT / 2) + (wall_line_height / 2)),
-		mlx);
 }
 
 void	horizontal_loop(t_mlx *mlx, int i)

@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:44:50 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/24 21:42:32 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:50:55 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ Map must be surrounded by walls"
 player represented by N, S, E or W"
 # define CHAR_ERROR "Error\nInvalid character in Map."
 # define MAP_STYLE_ERROR "Error\nInvalid configuration of map style."
+# define DIVISION_MAX 0.000001
+# define DIVISION_MIN -0.999999
 
 typedef struct s_data
 {
@@ -112,12 +114,12 @@ typedef struct s_tex
 	int			so[TEXWIDTH][TEXHEIGHT];
 	int			we[TEXWIDTH][TEXHEIGHT];
 	int			ea[TEXWIDTH][TEXHEIGHT];
-	int			x_texture;
 	char		*path_no;
 	char		*path_so;
 	char		*path_we;
 	char		*path_ea;
 }t_tex;
+
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
@@ -128,6 +130,7 @@ typedef struct s_mlx
 	int			map_height;
 	int			map_width;
 	int			line_width;
+	int			save;
 	t_list		*file_loaded;
 	t_data		img;
 	t_camera	camera;
@@ -190,6 +193,7 @@ void			get_map(t_mlx *mlx, char **argv);
 //map_utils.c
 int				get_tex_name(char **tex_name, char *string);
 int				check_rgb(int rgb[3]);
+int				get_floor_ceil(t_mlx *mlx, char *string, int floor);
 
 //------ PERSONAGE ------
 void			set_orientation(t_mlx *mlx);
@@ -241,5 +245,7 @@ void			engine(t_mlx *mlx);
 void			delta_dist(t_mlx *mlx);
 void			dist_to_side_x(t_mlx *mlx, int step[2]);
 void			dist_to_side_y(t_mlx *mlx, int step[2]);
+double			wall_texture_x(t_mlx *mlx);
+void			draw(t_mlx *mlx, int i);
 
 #endif

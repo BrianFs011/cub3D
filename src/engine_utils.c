@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:55:52 by briferre          #+#    #+#             */
-/*   Updated: 2023/07/18 20:57:18 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:20:10 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	delta_dist(t_mlx *mlx)
 {
-	if (mlx->camera.ray_dir.x == 0)
+	if (abs_d(mlx->camera.ray_dir.x) > DIVISION_MIN
+		&& abs_d(mlx->camera.ray_dir.x) < DIVISION_MAX)
 	{
 		mlx->camera.delta_dist.x = 1;
 		mlx->camera.delta_dist.y = 0;
@@ -22,7 +23,8 @@ void	delta_dist(t_mlx *mlx)
 	else
 		if (mlx->camera.ray_dir.y)
 			mlx->camera.delta_dist.x = abs_d(1 / mlx->camera.ray_dir.x);
-	if (mlx->camera.ray_dir.y == 0)
+	if (abs_d(mlx->camera.ray_dir.y) > DIVISION_MIN
+		&& abs_d(mlx->camera.ray_dir.y) < DIVISION_MAX)
 	{
 		mlx->camera.delta_dist.x = 0;
 		mlx->camera.delta_dist.y = 1;
@@ -66,4 +68,40 @@ void	dist_to_side_y(t_mlx *mlx, int step[2])
 		mlx->camera.dist_to_side.y = wall * mlx->camera.delta_dist.y;
 		step[Y] = 1;
 	}
+}
+
+double	wall_texture_x(t_mlx *mlx)
+{
+	double	wall_x;
+
+	if (mlx->camera.hit_side == 0)
+	{
+		wall_x = mlx->camera.position.y;
+		wall_x += mlx->camera.perpendicular_dist * mlx->camera.ray_dir.y;
+	}
+	else
+	{
+		wall_x = mlx->camera.position.x;
+		wall_x += mlx->camera.perpendicular_dist * mlx->camera.ray_dir.x;
+	}
+	wall_x -= (double)(int)wall_x;
+	wall_x = wall_x * 64;
+	if (mlx->camera.hit_side == 0 && mlx->camera.ray_dir.x > 0)
+		wall_x = TEXWIDTH - wall_x - 1;
+	if (mlx->camera.hit_side == 1 && mlx->camera.ray_dir.y < 0)
+		wall_x = TEXWIDTH - wall_x - 1;
+	return (wall_x);
+}
+
+void	draw(t_mlx *mlx, int i)
+{
+	double	wall_line_height;
+
+	wall_line_height = HEIGHT / mlx->camera.perpendicular_dist;
+	draw_line_texture(&mlx->img,
+		vector_points_i(i,
+			i,
+			(HEIGHT / 2) - (wall_line_height / 2),
+			(HEIGHT / 2) + (wall_line_height / 2)),
+		mlx);
 }
