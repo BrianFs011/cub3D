@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:20:56 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/14 15:32:18 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:17:32 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int	handle_key_press(int keycode, t_mlx *mlx)
 	if (keycode == XK_d)
 		key_d(mlx);
 	if (keycode == XK_Right)
-		mlx->camera.theta += 3;
+		mlx->camera.theta += 3.01;
 	if (keycode == XK_Left)
-		mlx->camera.theta -= 3;
+		mlx->camera.theta -= 2.99;
 	if (keycode == XK_Escape)
 		close_program(mlx);
 	mlx->unlook = 1;

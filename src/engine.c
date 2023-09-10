@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:53:51 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/25 10:41:28 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 10:19:17 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@ void	find_wall_pos(t_mlx *mlx, int step[2], int i)
 {
 	int	hit;
 	int	p[2];
-	static int	t;
 
 	hit = 0;
-	// mlx->teste[X] = 0;
-	// mlx->teste[Y] = 0;
 	while (hit == 0)
 	{
 		if (mlx->camera.dda_line_size.x < mlx->camera.dda_line_size.y)
 		{
 			mlx->camera.wall_map_pos.x += step[X];
 			mlx->camera.dda_line_size.x += mlx->camera.delta_dist.x;
-			if (mlx->camera.cardinal == no)
-				mlx->teste[X] = mlx->camera.delta_dist.x;
 			mlx->camera.hit_side = 0;
 			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, so, no);
 		}
@@ -36,28 +31,14 @@ void	find_wall_pos(t_mlx *mlx, int step[2], int i)
 		{
 			mlx->camera.wall_map_pos.y += step[Y];
 			mlx->camera.dda_line_size.y += mlx->camera.delta_dist.y;
-			if (mlx->camera.cardinal == no)
-				mlx->teste[Y] = mlx->camera.delta_dist.y;
 			mlx->camera.hit_side = 1;
-			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.x > 0, we, ea);
+			mlx->camera.cardinal = ternary_e(mlx->camera.ray_dir.y > 0, we, ea);
 		}
 		p[0] = mlx->camera.wall_map_pos.x;
 		p[1] = mlx->camera.wall_map_pos.y;
 		if (mlx->map.matrix[p[0]][p[1]] == '1')
 			hit = 1;
 	}
-	// if (mlx->save != p[1])
-	// {
-	// 	mlx->save = p[1];
-	// 	mlx->tex = 0;
-	// }
-	// if (mlx->camera.cardinal == no) // definir a textura para cada proco do mapa
-	// {
-	// 	mlx->tex++;
-	// 	// mlx->teste++;
-	// 	// t = (int)mlx->camera.dda_line_size.y;
-	// 	printf("%d %d %d %lf %lf\n", i,  mlx->camera.wall_map_pos.x, mlx->camera.wall_map_pos.y,mlx->camera.dda_line_size.x, mlx->camera.dda_line_size.y);
-	// }
 }
 
 void	perpendicular_dist(t_mlx *mlx, int step[2])
@@ -79,19 +60,6 @@ void	perpendicular_dist(t_mlx *mlx, int step[2])
 	}
 }
 
-void	draw(t_mlx *mlx, int i)
-{
-	double	wall_line_height;
-
-	wall_line_height = HEIGHT / mlx->camera.perpendicular_dist;
-	draw_line_texture(&mlx->img,
-		vector_points_i(i,
-			i,
-			(HEIGHT / 2) - (wall_line_height / 2),
-			(HEIGHT / 2) + (wall_line_height / 2)),
-		mlx);
-}
-
 void	horizontal_loop(t_mlx *mlx, int i)
 {
 	double	multiplier;
@@ -108,42 +76,23 @@ void	horizontal_loop(t_mlx *mlx, int i)
 	dist_to_side_y(mlx, step);
 	mlx->camera.dda_line_size.x = mlx->camera.dist_to_side.x;
 	mlx->camera.dda_line_size.y = mlx->camera.dist_to_side.y;
-	mlx->teste[X] = mlx->camera.dist_to_side.x;
-	mlx->teste[Y] = mlx->camera.dist_to_side.y;
 	mlx->camera.wall_map_pos.x = mlx->camera.map_pos.x;
 	mlx->camera.wall_map_pos.y = mlx->camera.map_pos.y;
 	find_wall_pos(mlx, step, i);
 	perpendicular_dist(mlx, step);
-	double	wall_line_height;
-
-	wall_line_height = HEIGHT / mlx->camera.perpendicular_dist;
-	mlx->plot[i].y0 = (HEIGHT / 2) - (wall_line_height / 2);
-	mlx->plot[i].y1 = (HEIGHT / 2) + (wall_line_height / 2);
-	mlx->plot[i].cardinal = mlx->camera.cardinal;
-	mlx->plot[i].wall_x = mlx->camera.wall_map_pos.x;
-	mlx->plot[i].wall_y = mlx->camera.wall_map_pos.y;
-	mlx->plot[i].perpendicular_dist = mlx->camera.perpendicular_dist;
-	// draw(mlx, i);
+	draw(mlx, i);
 }
 
 void	engine(t_mlx *mlx)
 {
 	int		i;
 
-	// for (i = 0; mlx->map.matrix[i]; i++)
-	// {
-	// 	for (int j = 0; mlx->map.matrix[j]; j++)
-	// 		printf("%c", mlx->map.matrix[i][j]);
-	// 	printf("\n");
-	// }
 	mlx->camera.direction = vector_init(0, 1, 0, 0);
 	mlx->camera.direction = vector_rotate_p(mlx->camera.direction,
 			mlx->camera.theta);
 	mlx->camera.plane = vector_init(0.66, 0, 0, 0);
 	mlx->camera.plane = vector_rotate_p(mlx->camera.plane, mlx->camera.theta);
 	i = -1;
-	// mlx->save = -1;
-	// mlx->tex = 0;
 	while (++i < WIDTH)
 		horizontal_loop(mlx, i);
 }

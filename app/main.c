@@ -6,51 +6,11 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:14:19 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/25 10:50:49 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 07:57:57 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-void	plot(t_mlx *mlx)
-{
-	int		i;
-	int		width_wall;
-	int		init_wall_y;
-	double	texture_x;
-
-	i = -1;
-	width_wall = 0;
-	init_wall_y = -1;
-	while (++i < WIDTH)
-	{
-		if (mlx->plot[i].cardinal == no)
-		{
-			if (init_wall_y == -1)
-				init_wall_y = mlx->plot[i].wall_y;
-			if (init_wall_y != mlx->plot[i].wall_y)
-				i = WIDTH;
-			else
-				width_wall++;
-		}
-	}
-	printf("%lf\n", ((double)64 / (double)width_wall));
-	i = -1;
-	texture_x = (double)64 / (double)width_wall;
-	while (++i < WIDTH)
-	{
-		mlx->camera.perpendicular_dist = mlx->plot[i].perpendicular_dist;
-		mlx->camera.cardinal = mlx->plot[i].cardinal;
-		draw_line_texture(&mlx->img,
-			vector_points_i(i,
-				(int)texture_x,
-				mlx->plot[i].y0,
-				mlx->plot[i].y1),
-			mlx);
-		if (mlx->camera.cardinal == no)
-			texture_x += (double)64 / (double)width_wall;
-	}
-}
 
 int	render(t_mlx *mlx)
 {
@@ -58,7 +18,6 @@ int	render(t_mlx *mlx)
 	{
 		load_background(&mlx->img, mlx->map.color_floor, mlx->map.color_ceil);
 		engine(mlx);
-		plot(mlx);
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
 		mlx->unlook = 0;
 	}

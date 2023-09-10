@@ -6,7 +6,7 @@
 /*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/24 16:51:02 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 08:08:57 by briferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,6 @@ void	get_file(t_mlx *mlx, char **argv)
 			ft_lstadd_back(&mlx->file_loaded, ft_lstnew(string));
 	}
 	close(fd);
-}
-
-int	get_floor_ceil(t_mlx *mlx, char *string, int floor)
-{
-	char	**split;
-	char	*aux_string;
-	int		rgb[3];
-	int		r;
-
-	aux_string = ft_substr(string, 2, ft_strlen(string));
-	split = ft_split(aux_string, ',');
-	rgb[0] = ft_atoi(split[0]);
-	rgb[1] = ft_atoi(split[1]);
-	rgb[2] = ft_atoi(split[2]);
-	r = check_rgb(rgb);
-	if (r)
-	{
-		if (floor)
-			mlx->map.color_floor = create_trgb(0, rgb[0], rgb[1], rgb[2]);
-		else
-			mlx->map.color_ceil = create_trgb(0, rgb[0], rgb[1], rgb[2]);
-	}
-	free (aux_string);
-	free_split(split);
-	return (r);
 }
 
 void	get_style(t_mlx *mlx)
@@ -117,11 +92,8 @@ void	read_map(t_mlx *mlx)
 			mlx->camera.position, i);
 	while (aux)
 	{
-			// char *a = aux->content;
 		if (check_value(aux->content))
 		{
-			// printf("%s", a);
-		// 	printf("%s\n", a);
 			mlx->map.matrix[++i] = aux->content;
 			mlx->camera.position = find_personage(aux->content,
 					mlx->camera.position, i);
