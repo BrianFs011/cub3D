@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 21:10:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/09/10 09:31:25 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:42:55 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	draw_line(t_data *data, int *p, int color)
 
 int	get_texture_pixel(t_mlx *mlx, int x, int y, enum e_cardinal pos)
 {
-	if (pos == no)
+	if (pos == so)
 		return (mlx->texture.so[y][x]);
 	else if (pos == we)
 		return (mlx->texture.we[y][x]);
