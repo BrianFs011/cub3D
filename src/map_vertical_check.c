@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 02:53:35 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/08/21 02:53:54 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:30:42 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_map_vertically(t_mlx *mlx)
 		i = -1;
 		while (mlx->map.matrix[++i] != NULL)
 		{
-			if (mlx->map.matrix[i][j] != '\0')
+			if (j <= ft_strlen(mlx->map.matrix[i]))
 			{
 				if (check_map_col(mlx, &inside_map, i, j) == 1)
 					return (set_error_msg(mlx, MAP_CONFIG_ERROR));
