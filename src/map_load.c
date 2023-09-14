@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 08:27:09 by briferre          #+#    #+#             */
-/*   Updated: 2023/09/10 19:22:04 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:27:24 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,10 @@ t_list	*find_map_position(t_list *file_loaded)
 int	check_value(void *value)
 {
 	char	*string;
-	int		i;
 
 	string = value;
 	if (!string || string[0] == '\n')
 		return (0);
-	i = -1;
-	while (string[++i] && string[i] != '\n')
-	{
-		if (!(string[i] == '1' || string[i] == '0' || string[i] == 'N'
-				|| string[i] == 'W' || string[i] == 'S' ||string[i] == 'E'
-				|| string[i] == ' '))
-			return (0);
-	}
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: briferre <briferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 14:07:06 by briferre          #+#    #+#             */
-/*   Updated: 2023/08/12 11:51:50 by briferre         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:59:53 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_insert(char *line, char word, int *i, int *size_line)
 	if ((*size_line) == 1)
 	{
 		(*size_line)++;
-		new_line = (char *)malloc(sizeof(char) * (*size_line));
+		new_line = (char *)malloc((sizeof(char) * (*size_line)) + 1);
 		new_line[(*i)] = word;
 	}
 	else if ((*i) == (*size_line))
